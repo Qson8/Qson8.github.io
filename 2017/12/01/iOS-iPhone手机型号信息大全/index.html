@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
+
+
+    <meta name="keywords" content="iOS，flutter,前端">
+
+
+<title>iOS:iPhone手机型号信息大全 | Qson</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Qson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Qson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div id="post-toc" class="post-toc">
+            <span class="post-toc-title">catalogue</span>
+            <div class="post-toc-content">
+                <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#iPhone"><span class="toc-text">iPhone:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iPad"><span class="toc-text">iPad:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iPad-Air"><span class="toc-text">iPad Air:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iPad-Pro"><span class="toc-text">iPad Pro:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iPad-Mini"><span class="toc-text">iPad Mini:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Samulitor"><span class="toc-text">Samulitor:</span></a></li></ol>
+            </div>
+        </div>
+    
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">iOS:iPhone手机型号信息大全</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Qson</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十二月 1, 2017&nbsp;&nbsp;18:13:40</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <section class="post-content">
+            <p>设备型号官网地址：<a href="https://www.theiphonewiki.com/wiki/Models" target="_blank" rel="noopener">https://www.theiphonewiki.com/wiki/Models</a></p>
+<p>2018年9月新增设备<br><code>iPhone XR , iPhone XS, iPhone XS Max</code></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获得设备型号</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)getCurrentDevice</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> mib[<span class="number">2</span>];</span><br><span class="line">    size_t len;</span><br><span class="line">    <span class="keyword">char</span> *machine;</span><br><span class="line">    </span><br><span class="line">    mib[<span class="number">0</span>] = <span class="built_in">CTL_HW</span>;</span><br><span class="line">    mib[<span class="number">1</span>] = HW_MACHINE;</span><br><span class="line">    sysctl(mib, <span class="number">2</span>, <span class="literal">NULL</span>, &amp;len, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    machine = malloc(len);</span><br><span class="line">    sysctl(mib, <span class="number">2</span>, machine, &amp;len, <span class="literal">NULL</span>, <span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *platform = [<span class="built_in">NSString</span> stringWithCString:machine encoding:<span class="built_in">NSASCIIStringEncoding</span>];</span><br><span class="line">    free(machine);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// iPhone</span></span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone1,1"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone2G"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone1,2"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone3G"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone2,1"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone3GS"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone3,1"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone4"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone3,2"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone4"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone3,3"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone4"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone4,1"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone4S"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone5,1"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone5"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone5,2"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone5"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone5,3"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone5c"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone5,4"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone5c"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone6,1"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone5s"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone6,2"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone5s"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone7,2"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone6"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone7,1"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone6Plus"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone8,1"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone6s"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone8,2"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone6sPlus"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone8,3"</span>]) <span class="keyword">return</span> <span class="string">@"iPhoneSE"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone8,4"</span>]) <span class="keyword">return</span> <span class="string">@"iPhoneSE"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone9,1"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone7"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone9,2"</span>] ||</span><br><span class="line">        [platform isEqualToString:<span class="string">@"iPhone9,4"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone7Plus"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone10,1"</span>] ||</span><br><span class="line">        [platform isEqualToString:<span class="string">@"iPhone10,4"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone 8"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone10,2"</span>] ||</span><br><span class="line">        [platform isEqualToString:<span class="string">@"iPhone10,5"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone 8 Plus"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone10,3"</span>] ||</span><br><span class="line">        [platform isEqualToString:<span class="string">@"iPhone10,6"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone X"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone11,8"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone XR"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone11,2"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone XS"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPhone11,4"</span>] ||</span><br><span class="line">        [platform isEqualToString:<span class="string">@"iPhone11,6"</span>]) <span class="keyword">return</span> <span class="string">@"iPhone XS Max"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//iPod Touch</span></span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPod1,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPodTouch"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPod2,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPodTouch2G"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPod3,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPodTouch3G"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPod4,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPodTouch4G"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPod5,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPodTouch5G"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPod7,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPodTouch6G"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//iPad</span></span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad1,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPad"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad2,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPad2"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad2,2"</span>])   <span class="keyword">return</span> <span class="string">@"iPad2"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad2,3"</span>])   <span class="keyword">return</span> <span class="string">@"iPad2"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad2,4"</span>])   <span class="keyword">return</span> <span class="string">@"iPad2"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad3,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPad3"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad3,2"</span>])   <span class="keyword">return</span> <span class="string">@"iPad3"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad3,3"</span>])   <span class="keyword">return</span> <span class="string">@"iPad3"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad3,4"</span>])   <span class="keyword">return</span> <span class="string">@"iPad4"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad3,5"</span>])   <span class="keyword">return</span> <span class="string">@"iPad4"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad3,6"</span>])   <span class="keyword">return</span> <span class="string">@"iPad4"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//iPad Air</span></span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad4,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPadAir"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad4,2"</span>])   <span class="keyword">return</span> <span class="string">@"iPadAir"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad4,3"</span>])   <span class="keyword">return</span> <span class="string">@"iPadAir"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad5,3"</span>])   <span class="keyword">return</span> <span class="string">@"iPadAir2"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad5,4"</span>])   <span class="keyword">return</span> <span class="string">@"iPadAir2"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//iPad pro</span></span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad6,3"</span>])   <span class="keyword">return</span> <span class="string">@"iPadPro"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad6,4"</span>])   <span class="keyword">return</span> <span class="string">@"iPadPro"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad6,7"</span>])   <span class="keyword">return</span> <span class="string">@"iPadPro"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad6,8"</span>])   <span class="keyword">return</span> <span class="string">@"iPadPro"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad6,11"</span>] ||</span><br><span class="line">        [platform isEqualToString:<span class="string">@"iPad6,12"</span>]) <span class="keyword">return</span> <span class="string">@"iPad 5"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad7,1"</span>] ||</span><br><span class="line">        [platform isEqualToString:<span class="string">@"iPad7,2"</span>]) <span class="keyword">return</span> <span class="string">@"iPad Pro 12.9-inch 2"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad7,3"</span>] ||</span><br><span class="line">        [platform isEqualToString:<span class="string">@"iPad7,4"</span>]) <span class="keyword">return</span> <span class="string">@"iPad Pro 10.5-inch"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//iPad mini</span></span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad2,5"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini1G"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad2,6"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini1G"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad2,7"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini1G"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad4,4"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini2"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad4,5"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini2"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad4,6"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini2"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad4,7"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini3"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad4,8"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini3"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad4,9"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini3"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad5,1"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini4"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"iPad5,2"</span>])   <span class="keyword">return</span> <span class="string">@"iPadmini4"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"i386"</span>])      <span class="keyword">return</span> <span class="string">@"iPhoneSimulator"</span>;</span><br><span class="line">    <span class="keyword">if</span> ([platform isEqualToString:<span class="string">@"x86_64"</span>])    <span class="keyword">return</span> <span class="string">@"iPhoneSimulator"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">@"Unknown"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="iPhone"><a href="#iPhone" class="headerlink" title="iPhone:"></a>iPhone:</h4><table>
+<thead>
+<tr>
+<th align="center">机型</th>
+<th align="center">像素</th>
+<th align="center">比例</th>
+<th align="center">ppi</th>
+<th align="center">尺寸</th>
+<th align="center">机型代码</th>
+<th align="center">发布时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">iPhone XR</td>
+<td align="center">1792×828</td>
+<td align="center">19.5:9</td>
+<td align="center">326</td>
+<td align="center">6.1</td>
+<td align="center">iPhone11,8</td>
+<td align="center">2018.09</td>
+</tr>
+<tr>
+<td align="center">iPhone XS Max</td>
+<td align="center">2688×1242</td>
+<td align="center">18:9</td>
+<td align="center">458</td>
+<td align="center">6.5</td>
+<td align="center">iPhone11,4 iPhone11,6</td>
+<td align="center">2018.09</td>
+</tr>
+<tr>
+<td align="center">iPhone XS</td>
+<td align="center">2436×1125</td>
+<td align="center">18:9</td>
+<td align="center">458</td>
+<td align="center">5.8</td>
+<td align="center">iPhone11,2</td>
+<td align="center">2018.09</td>
+</tr>
+<tr>
+<td align="center">iPhone X</td>
+<td align="center">2436×1125</td>
+<td align="center">18:9</td>
+<td align="center">458</td>
+<td align="center">5.8</td>
+<td align="center">iPhone10,3 iPhone10,6</td>
+<td align="center">2017.09</td>
+</tr>
+<tr>
+<td align="center">iPhone 8 plus</td>
+<td align="center">1920×1080</td>
+<td align="center">16:9</td>
+<td align="center">401</td>
+<td align="center">5.5</td>
+<td align="center">iPhone10,2 iPhone10,5</td>
+<td align="center">2017.09</td>
+</tr>
+<tr>
+<td align="center">iPhone 8</td>
+<td align="center">1334×750</td>
+<td align="center">16:9</td>
+<td align="center">401</td>
+<td align="center">4.7</td>
+<td align="center">iPhone10,1 iPhone10,4</td>
+<td align="center">2017.09</td>
+</tr>
+<tr>
+<td align="center">iPhone 7 plus</td>
+<td align="center">1920×1080</td>
+<td align="center">16:9</td>
+<td align="center">401</td>
+<td align="center">5.5</td>
+<td align="center">iPhone9,2 iPhone9,4</td>
+<td align="center">2016.09</td>
+</tr>
+<tr>
+<td align="center">iPhone 7</td>
+<td align="center">1334×750</td>
+<td align="center">16:9</td>
+<td align="center">401</td>
+<td align="center">4.7</td>
+<td align="center">iPhone9,1 iPhone9,3</td>
+<td align="center">2016.09</td>
+</tr>
+<tr>
+<td align="center">iPhone 5 SE</td>
+<td align="center">1136×640</td>
+<td align="center">16:9</td>
+<td align="center">401</td>
+<td align="center">4.0</td>
+<td align="center">iPhone8,4</td>
+<td align="center">2016.03</td>
+</tr>
+<tr>
+<td align="center">iPhone 6s plus</td>
+<td align="center">1920×1080</td>
+<td align="center">16:9</td>
+<td align="center">401</td>
+<td align="center">5.5</td>
+<td align="center">iPhone8,1</td>
+<td align="center">2015.09</td>
+</tr>
+<tr>
+<td align="center">iPhone 6s</td>
+<td align="center">1334×750</td>
+<td align="center">16:9</td>
+<td align="center">401</td>
+<td align="center">4.7</td>
+<td align="center">iPhone8,2</td>
+<td align="center">2015.09</td>
+</tr>
+<tr>
+<td align="center">iPhone 6 plus</td>
+<td align="center">1920×1080</td>
+<td align="center">16:9</td>
+<td align="center">401</td>
+<td align="center">5.5</td>
+<td align="center">iPhone7,1</td>
+<td align="center">2014.09</td>
+</tr>
+<tr>
+<td align="center">iPhone 6</td>
+<td align="center">1334×750</td>
+<td align="center">16:9</td>
+<td align="center">401</td>
+<td align="center">4.7</td>
+<td align="center">iPhone7,2</td>
+<td align="center">2014.09</td>
+</tr>
+<tr>
+<td align="center">iPhone 5s</td>
+<td align="center">1136×640</td>
+<td align="center">16:9</td>
+<td align="center">326</td>
+<td align="center">4.0</td>
+<td align="center">iPhone6,1 iPhone6,2</td>
+<td align="center">2013.09</td>
+</tr>
+</tbody></table>
+<h4 id="iPad"><a href="#iPad" class="headerlink" title="iPad:"></a>iPad:</h4><table>
+<thead>
+<tr>
+<th align="center">机型</th>
+<th align="center">逻辑分辨率</th>
+<th align="center">Scale</th>
+<th align="center">物理分辨率</th>
+<th align="center">比例</th>
+<th align="center">ppi</th>
+<th align="center">尺寸</th>
+<th align="center">型号代码</th>
+<th align="center">发布时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">iPad 5</td>
+<td align="center">1024×768</td>
+<td align="center">@2x</td>
+<td align="center">2048×1536</td>
+<td align="center">4:3</td>
+<td align="center">264</td>
+<td align="center">9.7</td>
+<td align="center">iPad6,11 iPad6,12</td>
+<td align="center">2017.03</td>
+</tr>
+<tr>
+<td align="center">iPad 4</td>
+<td align="center">1024×768</td>
+<td align="center">@2x</td>
+<td align="center">2048×1536</td>
+<td align="center">4:3</td>
+<td align="center">264</td>
+<td align="center">9.7</td>
+<td align="center">iPad3,4 iPad3,5 iPad3,6</td>
+<td align="center">2012.10</td>
+</tr>
+<tr>
+<td align="center">iPad 3</td>
+<td align="center">1024×768</td>
+<td align="center">@2x</td>
+<td align="center">2048×1536</td>
+<td align="center">4:3</td>
+<td align="center">264</td>
+<td align="center">9.7</td>
+<td align="center">iPad3,1 iPad3,2 iPad3,3</td>
+<td align="center">2012.03</td>
+</tr>
+<tr>
+<td align="center">iPad 2</td>
+<td align="center">1024×768</td>
+<td align="center">@1x</td>
+<td align="center">1024×768</td>
+<td align="center">4:3</td>
+<td align="center">163</td>
+<td align="center">9.7</td>
+<td align="center">iPad2,1 iPad2,2 iPad2,3 iPad2,4</td>
+<td align="center">2011.03</td>
+</tr>
+<tr>
+<td align="center">iPad</td>
+<td align="center">1024×768</td>
+<td align="center">@1x</td>
+<td align="center">1024×768</td>
+<td align="center">4:3</td>
+<td align="center">163</td>
+<td align="center">9.7</td>
+<td align="center">iPad1,1</td>
+<td align="center">2010.01</td>
+</tr>
+</tbody></table>
+<h4 id="iPad-Air"><a href="#iPad-Air" class="headerlink" title="iPad Air:"></a>iPad Air:</h4><table>
+<thead>
+<tr>
+<th align="center">机型</th>
+<th align="center">逻辑分辨率</th>
+<th align="center">Scale</th>
+<th align="center">物理分辨率</th>
+<th align="center">比例</th>
+<th align="center">ppi</th>
+<th align="center">尺寸</th>
+<th align="center">型号代码</th>
+<th align="center">发布时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">iPad Air</td>
+<td align="center">1024×768</td>
+<td align="center">@2x</td>
+<td align="center">2048×1536</td>
+<td align="center">4:3</td>
+<td align="center">264</td>
+<td align="center">9.7</td>
+<td align="center">iPad4,1 iPad4,2 iPad4,3</td>
+<td align="center">2013.10</td>
+</tr>
+<tr>
+<td align="center">iPad Air 2</td>
+<td align="center">1024×768</td>
+<td align="center">@2x</td>
+<td align="center">2048×1536</td>
+<td align="center">4:3</td>
+<td align="center">264</td>
+<td align="center">9.7</td>
+<td align="center">iPad5,3 iPad5,4</td>
+<td align="center">2014.10</td>
+</tr>
+</tbody></table>
+<h4 id="iPad-Pro"><a href="#iPad-Pro" class="headerlink" title="iPad Pro:"></a>iPad Pro:</h4><table>
+<thead>
+<tr>
+<th align="center">机型</th>
+<th align="center">逻辑分辨率</th>
+<th align="center">Scale</th>
+<th align="center">物理分辨率</th>
+<th align="center">比例</th>
+<th align="center">ppi</th>
+<th align="center">尺寸</th>
+<th align="center">型号代码</th>
+<th align="center">发布时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">iPad Pro 10.5</td>
+<td align="center">1112×834</td>
+<td align="center">@2x</td>
+<td align="center">2224×1668</td>
+<td align="center">4:3</td>
+<td align="center">264</td>
+<td align="center">10.5</td>
+<td align="center">iPad7,3 iPad7,4</td>
+<td align="center">2017</td>
+</tr>
+<tr>
+<td align="center">iPad Pro 12.9-inch 2</td>
+<td align="center">1366×1024</td>
+<td align="center">@2x</td>
+<td align="center">2732×2048</td>
+<td align="center">4:3</td>
+<td align="center">264</td>
+<td align="center">12.9</td>
+<td align="center">iPad7,1 iPad7,2</td>
+<td align="center">2017</td>
+</tr>
+<tr>
+<td align="center">iPad Pro 9.7-inch</td>
+<td align="center">1024×768</td>
+<td align="center">@2x</td>
+<td align="center">2048×1536</td>
+<td align="center">4:3</td>
+<td align="center">264</td>
+<td align="center">9.7</td>
+<td align="center">iPad6,3 iPad6,4</td>
+<td align="center">2016.03</td>
+</tr>
+<tr>
+<td align="center">iPad Pro 12.9-inch</td>
+<td align="center">1366×1024</td>
+<td align="center">@2x</td>
+<td align="center">2732×2048</td>
+<td align="center">4:3</td>
+<td align="center">264</td>
+<td align="center">12.9</td>
+<td align="center">iPad6,7 iPad6,8</td>
+<td align="center">2015.09</td>
+</tr>
+</tbody></table>
+<h4 id="iPad-Mini"><a href="#iPad-Mini" class="headerlink" title="iPad Mini:"></a>iPad Mini:</h4><table>
+<thead>
+<tr>
+<th align="center">机型</th>
+<th align="center">逻辑分辨率</th>
+<th align="center">Scale</th>
+<th align="center">物理分辨率</th>
+<th align="center">比例</th>
+<th align="center">ppi</th>
+<th align="center">尺寸</th>
+<th align="center">型号代码</th>
+<th align="center">发布时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">iPad mini 4</td>
+<td align="center">1024×768</td>
+<td align="center">@2X</td>
+<td align="center">2048×1536</td>
+<td align="center">4:3</td>
+<td align="center">326</td>
+<td align="center">7.9</td>
+<td align="center">iPad5,1 iPad5,2 iPad4,9</td>
+<td align="center">2015.09</td>
+</tr>
+<tr>
+<td align="center">iPad mini 3</td>
+<td align="center">1024×768</td>
+<td align="center">@2X</td>
+<td align="center">2048×1536</td>
+<td align="center">4:3</td>
+<td align="center">326</td>
+<td align="center">7.9</td>
+<td align="center">iPad4,7 iPad4,8 iPad4,9</td>
+<td align="center">2014.10</td>
+</tr>
+<tr>
+<td align="center">iPad mini 2</td>
+<td align="center">1024×768</td>
+<td align="center">@2X</td>
+<td align="center">2048×1536</td>
+<td align="center">4:3</td>
+<td align="center">326</td>
+<td align="center">7.9</td>
+<td align="center">iPad4,5 iPad4,6 iPad4,7</td>
+<td align="center">2013.10</td>
+</tr>
+<tr>
+<td align="center">iPad mini</td>
+<td align="center">1024×768</td>
+<td align="center">@1X</td>
+<td align="center">1024×768</td>
+<td align="center">4:3</td>
+<td align="center">163</td>
+<td align="center">7.9</td>
+<td align="center">iPad2,5 iPad2,6 iPad2,7</td>
+<td align="center">2012.10</td>
+</tr>
+</tbody></table>
+<h4 id="Samulitor"><a href="#Samulitor" class="headerlink" title="Samulitor:"></a>Samulitor:</h4><table>
+<thead>
+<tr>
+<th align="center">机型</th>
+<th align="center">型号代码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Simulator</td>
+<td align="center">i386、x86_64</td>
+</tr>
+<tr>
+<td align="center">Unknown</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+
+        </section>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Qson</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Qson.com/2017/12/01/iOS-iPhone手机型号信息大全/">http://Qson.com/2017/12/01/iOS-iPhone手机型号信息大全/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/07/08/hello-world/">Hello World</a>
+            
+            
+            <a class="next" rel="next" href="/2017/11/08/iOS-自动化打包/">iOS:自动化打包</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Qson | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

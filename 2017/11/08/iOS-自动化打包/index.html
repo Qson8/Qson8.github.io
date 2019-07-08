@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
+
+
+    <meta name="keywords" content="iOS，flutter,前端">
+
+
+<title>iOS:自动化打包 | Qson</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Qson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Qson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div id="post-toc" class="post-toc">
+            <span class="post-toc-title">catalogue</span>
+            <div class="post-toc-content">
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Xcode打包了解"><span class="toc-text">Xcode打包了解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Xcode打包流程"><span class="toc-text">Xcode打包流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自动化打包工具"><span class="toc-text">自动化打包工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python实现iOS自动化打包"><span class="toc-text">Python实现iOS自动化打包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#python环境配置"><span class="toc-text">python环境配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置脚本"><span class="toc-text">配置脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行脚本打包"><span class="toc-text">运行脚本打包</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fastlane自动打包"><span class="toc-text">fastlane自动打包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装xcode命令行工具"><span class="toc-text">安装xcode命令行工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Fastlane"><span class="toc-text">安装Fastlane</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化Fastlane"><span class="toc-text">初始化Fastlane</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件系统"><span class="toc-text">文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置蒲公英插件"><span class="toc-text">配置蒲公英插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行打包"><span class="toc-text">执行打包</span></a></li></ol></li></ol>
+            </div>
+        </div>
+    
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">iOS:自动化打包</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Qson</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十一月 8, 2017&nbsp;&nbsp;12:17:38</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <section class="post-content">
+            <p> <strong>iOS</strong>在项目开发中少不了打包这一环节，打测试包也是操作比较频繁的，有时候因为一点点改动都需要另外提供新的安装包测试。而且xcode原生打包比较费时间，这时候就有了自动化打包，方便快捷自动化的同时，你还可以继续做其他事情。</p>
+<hr>
+<p>[TOC]</p>
+<h3 id="Xcode打包了解"><a href="#Xcode打包了解" class="headerlink" title="Xcode打包了解"></a>Xcode打包了解</h3><h4 id="Xcode打包流程"><a href="#Xcode打包流程" class="headerlink" title="Xcode打包流程"></a>Xcode打包流程</h4><ol>
+<li>Archive**存档系统做了什么？<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-6130f9b5926d7bbd.gif?imageMogr2/auto-orient/strip" alt></p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<ul>
+<li><strong>processing</strong><br>处理info.plist文件<br><img src="https://upload-images.jianshu.io/upload_images/1931782-a5a6cb4c9ef4cede.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527390526580.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>compiling</strong><br>先编译第三方框架文件，后编译项目文件，大一点的项目源文件非常多，编译需要耗费比较多的事件，而且这时候是无法重新run项目，否则会中断存档。<br><img src="https://upload-images.jianshu.io/upload_images/1931782-da01d633275d5e2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527393636669.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>linking</strong><br><img src="https://upload-images.jianshu.io/upload_images/1931782-ddc5ace4085ab6de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527393679736.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>coping</strong><br><img src="https://upload-images.jianshu.io/upload_images/1931782-efcbdd01954e9677.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527393602003.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>Generating dSYM file</strong><br><a href="https://www.cnblogs.com/QianChia/p/8531744.html" target="_blank" rel="noopener">dSYM</a>是保存 16 进制函数地址映射信息的中转文件，我们调试的 symbols 都会包含在这个文件中，并且每次编译项目的时候都会生成一个新的 dSYM 文件<br><img src="https://upload-images.jianshu.io/upload_images/1931782-4eeac550ea4a33c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527393481281.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>running  shell scripts</strong><br><img src="https://upload-images.jianshu.io/upload_images/1931782-3ee9ea073ede880b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527393450834.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>signing product</strong><br>![Alt text]<img src="https://upload-images.jianshu.io/upload_images/1931782-1bb63dceba900a18.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527393754813.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>stripping symbols</strong><br><img src="https://upload-images.jianshu.io/upload_images/1931782-2dd3e1dabfead519.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527393851395.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>Touch product</strong><br><img src="https://upload-images.jianshu.io/upload_images/1931782-195766de8cf91080.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527393904528.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>Succeeded</strong><br><img src="https://upload-images.jianshu.io/upload_images/1931782-bb434aab378722a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527393924599.png"></li>
+</ul>
+</blockquote>
+<ol start="2">
+<li>导出ipa</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-aafc2c6c2e0767a9.gif?imageMogr2/auto-orient/strip" alt="2.gif"></p>
+<ol start="3">
+<li>然后就是上传到分发平台分发测试，如蒲公英…</li>
+</ol>
+<h4 id="自动化打包工具"><a href="#自动化打包工具" class="headerlink" title="自动化打包工具"></a>自动化打包工具</h4><p>以上就是比较创建的通过Xcode打包方式，快的话十几分钟，慢的话要半个小时甚至还要多，有时确实很影响效率！于是自动化打包的工具就出现了，！如fastlane，是通过终端使用xcodebuild命令进行打包，而且同时支持iOS和安卓，</p>
+<blockquote>
+<p><strong>xcodebuild</strong>是苹果发布自动构建的工具。它在一个Xcode项目下能构建一个或者多个targets</p>
+</blockquote>
+<h3 id="Python实现iOS自动化打包"><a href="#Python实现iOS自动化打包" class="headerlink" title="Python实现iOS自动化打包"></a>Python实现iOS自动化打包</h3><p><a href="https://www.jianshu.com/p/1f47066da6f7" target="_blank" rel="noopener">Python实现iOS自动化打包</a>本质是包装了一层liunx命令，通过自动输入相关命令实现自动化，也可以自动打包上传蒲公英。<br>当你需要打包时，只要项目编译好，终端输入一行命令，网络好2分钟左右上传好并给你显示二维码。演示效果如下</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-813c62fe00de1f11.gif?imageMogr2/auto-orient/strip" alt="3.gif"></p>
+<h4 id="python环境配置"><a href="#python环境配置" class="headerlink" title="python环境配置"></a>python环境配置</h4><blockquote>
+<ul>
+<li>检查python版本 </li>
+</ul>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">python</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>检查pip是否安装  <a href="https://jingyan.baidu.com/article/ca2d939d6299eaeb6c31cee2.html" target="_blank" rel="noopener">pip安装教程</a></li>
+<li>用pip安装request网络请求库组件  </li>
+</ul>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">"失败</span></span><br><span class="line"><span class="comment">"直接使用pip install requests将requests安装到了Python 2.7中</span></span><br><span class="line">$ pip install requests </span><br><span class="line">  </span><br><span class="line">   <span class="comment">"成功</span></span><br><span class="line">$ sudo easy_install requests   <span class="comment">"mac 安装python网络请求包requests</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="配置脚本"><a href="#配置脚本" class="headerlink" title="配置脚本"></a>配置脚本</h4><ul>
+<li>github下载<strong><a href="https://github.com/ys323945/iOSAutoPage/tree/master" target="_blank" rel="noopener">iOSAutoPage</a></strong> 自动打包Python脚本</li>
+<li>配置脚本参数<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-07d16420d16d80d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527398867128.png"></p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding=utf-8 </span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> commands</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> webbrowser</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">使用注意事项:该脚本基于python2.7</span></span><br><span class="line"><span class="string">1、将工程的编译设备选成 Gemeric iOS Device</span></span><br><span class="line"><span class="string">2、command + B编译</span></span><br><span class="line"><span class="string">3、执行脚本文件</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">appFileFullPath = <span class="string">'/Users/qson/Library/Developer/Xcode/DerivedData/SydneyToday-epvtbphncybavlhftvcslabftgtc/Build/Products/Debug-iphoneos/SydneyToday.app'</span></span><br><span class="line">PayLoadPath = <span class="string">'/Users/qson/Desktop/Payload'</span></span><br><span class="line">packBagPath = <span class="string">'/Users/qson/Desktop/ProgramBag'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将此处打开的链接改为蒲公英对应app的链接</span></span><br><span class="line">openUrl = <span class="string">'https://www.pgyer.com/manager/dashboard/app/029e09dfe525dcc1e8357111d0adc9e2'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#上传蒲公英</span></span><br><span class="line">USER_KEY = <span class="string">"e125bf21ee4c2a52b894ce6163488543"</span></span><br><span class="line">API_KEY = <span class="string">"8d15df313bdc6c3f96dfffb9dc905aa6"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#上传蒲公英</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">uploadIPA</span><span class="params">(IPAPath)</span>:</span></span><br><span class="line">    <span class="keyword">if</span>(IPAPath==<span class="string">''</span>):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"\n*************** 没有找到对应上传的IPA包 *********************\n"</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"\n***************开始上传到蒲公英*********************\n"</span></span><br><span class="line">        url=<span class="string">'http://www.pgyer.com/apiv1/app/upload'</span></span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">'uKey'</span>:USER_KEY,</span><br><span class="line">            <span class="string">'_api_key'</span>:API_KEY,</span><br><span class="line">            <span class="string">'installType'</span>:<span class="string">'2'</span>,</span><br><span class="line">            <span class="string">'password'</span>:<span class="string">''</span>,</span><br><span class="line">            <span class="string">'updateDescription'</span>:des</span><br><span class="line">        &#125;</span><br><span class="line">        files=&#123;<span class="string">'file'</span>:open(IPAPath,<span class="string">'rb'</span>)&#125;</span><br><span class="line">        r=requests.post(url,data=data,files=files)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">openDownloadUrl</span><span class="params">()</span>:</span></span><br><span class="line">    webbrowser.open(openUrl,new=<span class="number">1</span>,autoraise=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"\n*************** 更新成功 *********************\n"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建PayLoad文件夹</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mkdir</span><span class="params">(PayLoadPath)</span>:</span></span><br><span class="line">    isExists = os.path.exists(PayLoadPath)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> isExists:</span><br><span class="line">        os.makedirs(PayLoadPath)</span><br><span class="line">        <span class="keyword">print</span> PayLoadPath + <span class="string">'创建成功'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> PayLoadPath + <span class="string">'目录已经存在'</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#编译打包流程</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bulidIPA</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment">#打包之前先删除packBagPath下的文件夹</span></span><br><span class="line">    commands.getoutput(<span class="string">'rm -rf %s'</span>%packBagPath)</span><br><span class="line">    <span class="comment">#创建PayLoad文件夹</span></span><br><span class="line">    mkdir(PayLoadPath)</span><br><span class="line">    <span class="comment">#将app拷贝到PayLoadPath路径下</span></span><br><span class="line">    commands.getoutput(<span class="string">'cp -r %s %s'</span>%(appFileFullPath,PayLoadPath))</span><br><span class="line">    <span class="comment">#在桌面上创建packBagPath的文件夹</span></span><br><span class="line">    commands.getoutput(<span class="string">'mkdir -p %s'</span>%packBagPath)</span><br><span class="line">    <span class="comment">#将PayLoadPath文件夹拷贝到packBagPath文件夹下</span></span><br><span class="line">    commands.getoutput(<span class="string">'cp -r %s %s'</span>%(PayLoadPath,packBagPath))</span><br><span class="line">    <span class="comment">#删除桌面的PayLoadPath文件夹</span></span><br><span class="line">    commands.getoutput(<span class="string">'rm -rf %s'</span>%(PayLoadPath))</span><br><span class="line">    <span class="comment">#切换到当前目录</span></span><br><span class="line">    os.chdir(packBagPath)</span><br><span class="line">    <span class="comment">#压缩packBagPath文件夹下的PayLoadPath文件夹夹</span></span><br><span class="line">    commands.getoutput(<span class="string">'zip -r ./Payload.zip .'</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"\n*************** 打包成功 *********************\n"</span></span><br><span class="line">    <span class="comment">#将zip文件改名为ipa</span></span><br><span class="line">    commands.getoutput(<span class="string">'mv Payload.zip Payload.ipa'</span>)</span><br><span class="line">    <span class="comment">#删除payLoad文件夹</span></span><br><span class="line">    commands.getoutput(<span class="string">'rm -rf ./Payload'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    des = input(<span class="string">"请输入更新的日志描述:"</span>)</span><br><span class="line">    bulidIPA()</span><br><span class="line">    uploadIPA(<span class="string">'%s/Payload.ipa'</span>%packBagPath)</span><br><span class="line">    openDownloadUrl()</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行脚本打包"><a href="#运行脚本打包" class="headerlink" title="运行脚本打包"></a>运行脚本打包</h4><p>Xcdoe中通过command+B编译好项目，然后执行在终端输入以下命令</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">"python + (脚本本机路径)</span></span><br><span class="line">$ <span class="keyword">python</span> /Users/qson/Desktop/工作区/学习/自动化/自动化打包/iOSAutoPage-master/AutoPage/DaoBao.<span class="keyword">py</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="fastlane自动打包"><a href="#fastlane自动打包" class="headerlink" title="fastlane自动打包"></a>fastlane自动打包</h3><blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-4529614cf5ded757.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527417767634.png"></p>
+</blockquote>
+<blockquote>
+<p><strong><a href="https://fastlane.tools" target="_blank" rel="noopener">Fastlane</a></strong>是一套使用Ruby写的自动化工具集，旨在简化Android和iOS的部署过程，自动化你的工作流。它可以简化一些乏味、单调、重复的工作，像截图、代码签名以及发布App</p>
+</blockquote>
+<h4 id="安装xcode命令行工具"><a href="#安装xcode命令行工具" class="headerlink" title="安装xcode命令行工具"></a>安装xcode命令行工具</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xcode-select --install</span><br></pre></td></tr></table></figure>
+
+<p>如果没有安装，会弹出对话框，点击安装。如果提示<code>xcode-select: error: command line tools are already installed, use &quot;Software Update&quot; to install updates</code>表示已经安装</p>
+<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-e23363ed79716418.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527418194727.png"></p>
+</blockquote>
+<h4 id="安装Fastlane"><a href="#安装Fastlane" class="headerlink" title="安装Fastlane"></a>安装Fastlane</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gem install fastlane -NV </span><br><span class="line">或</span><br><span class="line">$ brew cask install fastlane</span><br></pre></td></tr></table></figure>
+
+<p>安装完了执行<code>fastlane --version</code>，确认下是否安装完成和当前使用的版本号。</p>
+<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-5546ca9f5015ffea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527418442637.png"></p>
+</blockquote>
+<h4 id="初始化Fastlane"><a href="#初始化Fastlane" class="headerlink" title="初始化Fastlane"></a>初始化Fastlane</h4><p><code>cd到你的项目目录执行</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fastlane init</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-87acd43d85ee5010.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527418014690.png"></p>
+</blockquote>
+<p>选择3 后接着需要输入开发者账号和密码，登录成功后会提示你是否需要下载你的App的metadata。点y等待就可以。</p>
+<blockquote>
+<p>![Alt text]<img src="https://upload-images.jianshu.io/upload_images/1931782-6d43432192c4200b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527418706117.png"></p>
+</blockquote>
+<h4 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h4><p>初始化成功后会在当前工程目录生成一个fastlane文件夹，文件目录为下</p>
+<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-4e1a083fb8e2d993.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527419080826.png"></p>
+</blockquote>
+<blockquote>
+<p>metadata和screenshots分别对应App元数据和商店应用截图。<br>Appfile主要存放App的apple_id team_id app_identifier等信息<br>Deliverfile中为发布的配置信息，一般情况用不到。<br>Fastfile是我们最应该关注的文件，也是我们的工作文件。</p>
+</blockquote>
+<p><strong>Fastfile</strong>的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">fastlane_version &quot;2.96.1&quot;</span><br><span class="line">default_platform(:ios)</span><br><span class="line"></span><br><span class="line">now = Time.new.strftime(&quot;%Y_%m_%d_%H_%M_%S&quot;)</span><br><span class="line">scheme = &quot;SydneyToday&quot;</span><br><span class="line">api_key = &quot;8d15df313bdc6c3f96dfffb9dc905aa6&quot;</span><br><span class="line">user_key = &quot;e125bf21ee4c2a52b894ce6163488543&quot;</span><br><span class="line"></span><br><span class="line">platform :ios do</span><br><span class="line">  desc &quot;Description of what the lane does&quot;</span><br><span class="line">  </span><br><span class="line">  lane :beta do</span><br><span class="line">  # 开始打包</span><br><span class="line">  gym(</span><br><span class="line">    scheme: &quot;#&#123;scheme&#125;&quot;,</span><br><span class="line">    #输出的ipa名称</span><br><span class="line">    output_name:&quot;#&#123;now&#125; #&#123;scheme&#125;&quot;,</span><br><span class="line">    # 是否清空以前的编译信息 true：是</span><br><span class="line">    clean:true,</span><br><span class="line">    # 指定打包方式，Release 或者 Debug</span><br><span class="line">    configuration:&quot;Release&quot;,</span><br><span class="line">    # 指定打包所使用的输出方式，目前支持app-store, package, ad-hoc, enterprise, development</span><br><span class="line">    export_method:&quot;ad-hoc&quot;,</span><br><span class="line">    # 指定输出文件夹</span><br><span class="line">    output_directory:&quot;./fastlane/build&quot;,</span><br><span class="line">  )</span><br><span class="line">  puts &quot;开始上传蒲公英&quot;</span><br><span class="line">  pgyer(api_key: &quot;#&#123;api_key&#125;&quot;, user_key: &quot;#&#123;user_key&#125;&quot;)</span><br><span class="line">  end</span><br><span class="line">  </span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置蒲公英插件"><a href="#配置蒲公英插件" class="headerlink" title="配置蒲公英插件"></a>配置蒲公英插件</h4><p>要实现自动打包到蒲公英平台，需要给fastlane安装个蒲公英插件，更多配置查看<a href="https://www.pgyer.com/doc/view/fastlane" target="_blank" rel="noopener">蒲公英文档</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fastlane add_plugin pgyer</span><br></pre></td></tr></table></figure>
+
+<p>如果未添加蒲公英插件，则后面会报错，说找不到pgyer插件</p>
+<h4 id="执行打包"><a href="#执行打包" class="headerlink" title="执行打包"></a>执行打包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fastlane beta desc:测试打包</span><br></pre></td></tr></table></figure>
+
+<p>注意： fastlane 后面跟的<code>beta</code>和Fastfile文件中的lane必须一致，否则会报一下错误</p>
+<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-a01b92e64cea0082.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527419862428.png"></p>
+</blockquote>
+<p>存档成功</p>
+<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-61b53e049a2cfb02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527420466741.png"></p>
+</blockquote>
+<p>存档路径</p>
+<blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/1931782-c824d771b349f9e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527421965449.png"></p>
+</blockquote>
+<p>上传蒲公英<br><img src="https://upload-images.jianshu.io/upload_images/1931782-09563b73101f9a9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1527421226006.png"></p>
+<p>大工告成！安装测试包把网页或二维码丢给测试</p>
+<p>fastlane可以简化很多操作，提升一些效率，但是还不够极致！</p>
+
+        </section>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Qson</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Qson.com/2017/11/08/iOS-自动化打包/">http://Qson.com/2017/11/08/iOS-自动化打包/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2017/12/01/iOS-iPhone手机型号信息大全/">iOS:iPhone手机型号信息大全</a>
+            
+            
+            <a class="next" rel="next" href="/2017/09/08/iOS-使用MethodSwizzle-实现对数组、字典-等系统方法的安全校验-遇到的坑/">iOS:使用MethodSwizzle 实现对数组、字典 等系统方法的安全校验 遇到的坑</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Qson | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
