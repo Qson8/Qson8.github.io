@@ -1,88 +1,139 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  
-  <title>无忧的使用KVO | Qson | 站得高，才能望的远</title>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  
-  <meta name="author" content="Qson">
-  
+    <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
 
-  
-  <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
-  
 
-  
-  <meta name="keywords" content="iOS，flutter,前端">
-  
+    <meta name="keywords" content="iOS，flutter,前端">
 
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <meta property="og:title" content="无忧的使用KVO">
+<title>iOS:无忧的使用KVO | Qson</title>
 
-  <meta property="og:site_name" content="Qson">
 
-  
-  <meta property="og:image" content="/favicon.ico">
-  
 
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="Qson" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
 </head>
-
-
 <body>
-<div class="blog">
-  <div class="content">
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Bentham&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
 
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
-      <a href="/">Qson</a>
-    </h1>
-    <p class="site-description">站得高，才能望的远</p>
-  </div>
-  <nav class="site-navigation">
-    <ul>
-      
-        <li><a href="/">主页</a></li>
-      
-        <li><a href="/archives">归档</a></li>
-      
-    </ul>
-  </nav>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Bentham&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
 </header>
-
-    <main class="site-main posts-loop">
-    <article>
-
-  
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
     
-    <h3 class="article-title"><span>无忧的使用KVO</span></h3>
     
-  
+        <div id="post-toc" class="post-toc">
+            <span class="post-toc-title">catalogue</span>
+            <div class="post-toc-content">
+                <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方案"><span class="toc-text">方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结和注意点"><span class="toc-text">总结和注意点:</span></a></li></ol>
+            </div>
+        </div>
+    
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">iOS:无忧的使用KVO</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Qson</a>
+                    
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2017/07/08/无忧的使用KVO/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-07-08T11:33:27.000Z">
-          2017-07-08
-        </time>
-      </a>
-    </span>
-  </div>
+                    
+                        <span class="post-time">
+                        Date: <a href="#">七月 8, 2017&nbsp;&nbsp;19:33:27</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
 
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在开发中我们经常需要用到KVO，但KVO一旦使用不当，会造成致命性的问题-崩溃。</p>
+        <section class="post-content">
+            <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在开发中我们经常需要用到KVO，但KVO一旦使用不当，会造成致命性的问题-崩溃。</p>
 <p>在开发中KVO尝试过很多方法来使用KVO，有init方法中添加，dealloc方法中移除，如果有问题，在搞个布尔值标记下，网上很多方法在使用中可能场景和需求不一样，效果不保险感觉。</p>
 <h4 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h4><p>今天偶尔看到MJRefresh框架在对KVO的处理，通过了解并Demo演练，发现这种方法非常不错，故此推荐给大家。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)willMoveToSuperview:(<span class="built_in">UIView</span> *)newSuperview；</span><br></pre></td></tr></table></figure>
@@ -90,43 +141,71 @@
 <p>这是系统的方法，当视图将要添加到父视图上，或将要从父视图上移除时会调用。在这个方法处理监听的添加和移除。<a href>Demo下载</a><br>先上代码</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)willMoveToSuperview:(<span class="built_in">UIView</span> *)newSuperview</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> willMoveToSuperview:newSuperview];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> removeObserver];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(newSuperview) &#123;</span><br><span class="line">        <span class="keyword">if</span>([newSuperview isKindOfClass:[ObserverView <span class="keyword">class</span>]]) &#123;</span><br><span class="line">            _obView = (ObserverView *)newSuperview;</span><br><span class="line">            </span><br><span class="line">            [<span class="keyword">self</span> addObserver];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addObserver</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSKeyValueObservingOptions</span> options = <span class="built_in">NSKeyValueObservingOptionNew</span>;</span><br><span class="line">    [<span class="keyword">self</span>.obView addObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"clickCount"</span> options:(options) context:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)removeObserver</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@  --  %@"</span>,<span class="keyword">self</span>.obView,<span class="keyword">self</span>.superview);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     ！ 切记 这里必须用self.superview</span></span><br><span class="line"><span class="comment">     self.obView 在这个时候已经是nill</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="comment">//    [self.obView removeObserver:self forKeyPath:@"clickCount"];</span></span><br><span class="line">    [<span class="keyword">self</span>.superview removeObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"clickCount"</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>([keyPath isEqualToString:<span class="string">@"clickCount"</span>]) &#123;</span><br><span class="line">        <span class="keyword">self</span>.textlabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%ld"</span>,<span class="keyword">self</span>.obView.clickCount];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>####总结和注意点:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">总结和注意点:</span><br><span class="line">可在willMoveToSuperview: 添加和移除监听者</span><br><span class="line"> </span><br><span class="line"> 1. 需要调用super willMoveToSuperview</span><br><span class="line"> 2. 需要先移除 监听者 removeObserver</span><br><span class="line"> 3. 然后在willMoveToSuperview 参数 newSuperview 有值 设置监听者 addObserver</span><br><span class="line"> 4. removeObserver 内如果是监听的父类，在这里必须写self.super 因为自己设置的属性指向父类，在这里属性是没值的</span><br></pre></td></tr></table></figure>
+<h4 id="总结和注意点"><a href="#总结和注意点" class="headerlink" title="总结和注意点:"></a>总结和注意点:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">总结和注意点:</span><br><span class="line">可在willMoveToSuperview: 添加和移除监听者</span><br><span class="line"> </span><br><span class="line"> 1. 需要调用super willMoveToSuperview</span><br><span class="line"> 2. 需要先移除 监听者 removeObserver</span><br><span class="line"> 3. 然后在willMoveToSuperview 参数 newSuperview 有值 设置监听者 addObserver</span><br><span class="line"> 4. removeObserver 内如果是监听的父类，在这里必须写self.super 因为自己设置的属性指向父类，在这里属性是没值的</span><br></pre></td></tr></table></figure>
 
 
-      
-    </div>
+        </section>
 
-  </div>
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Qson</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Qson.com/2017/07/08/无忧的使用KVO/">http://Qson.com/2017/07/08/无忧的使用KVO/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
 
-  <div class="article-footer">
-    <div class="article-meta pull-left">
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/07/08/hello-world/">Hello World</a>
+            
+            
+        </section>
 
-    
 
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-    </main>
-
-    <footer class="site-footer">
-  <p class="site-info">
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
-    
-    &copy; 2019 Qson
-    
-  </p>
-</footer>
-    
-  </div>
+    </article>
 </div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Qson | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
 </body>
 </html>
