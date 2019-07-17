@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
+
+
+    <meta name="keywords" content="iOS，flutter,前端">
+
+
+<title>vapor 和swift 搭建api接口 | Qson</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Qson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Qson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div id="post-toc" class="post-toc">
+            <span class="post-toc-title">catalogue</span>
+            <div class="post-toc-content">
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#vapor-and-swift"><span class="toc-text">vapor and swift</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置域名解析"><span class="toc-text">配置域名解析</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx"><span class="toc-text">nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Supervisor"><span class="toc-text">Supervisor</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#接口修改上线流程"><span class="toc-text">接口修改上线流程</span></a></li></ol></li>
+            </div>
+        </div>
+    
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">vapor 和swift 搭建api接口</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Qson</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">七月 16, 2017&nbsp;&nbsp;16:33:27</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/vapor/">vapor</a>
+                            
+                                <a href="/categories/vapor/swift/">swift</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <section class="post-content">
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以下是自己利用vapor框架，将swift写的api项目部署到后台云服务器中，总结的步骤，每台机器环境不一样，仅供参考。</span><br></pre></td></tr></table></figure>
+
+<h3 id="vapor-and-swift"><a href="#vapor-and-swift" class="headerlink" title="vapor and swift"></a>vapor and swift</h3><p>mysql | nginx | psql | swiftenv | </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update </span><br><span class="line">$ sudo apt-get upgrade</span><br><span class="line">$ <span class="built_in">eval</span> <span class="string">"<span class="variable">$(curl -sL https://apt.vapor.sh)</span>"</span></span><br><span class="line">$ sudo apt-get install swift vapor</span><br><span class="line">$ sudo apt-get install nginx</span><br><span class="line">$ sudo apt-get install supervisor</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置域名解析"><a href="#配置域名解析" class="headerlink" title="配置域名解析"></a>配置域名解析</h3><p>A — api.xxx.com </p>
+<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a><a href="https://docs.vapor.codes/2.0/deploy/nginx/" target="_blank" rel="noopener">nginx</a></h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># /etc/nginx/site-avaliables/default</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">server_name</span> hello.com;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">root</span> /home/vapor/Hello/Public/;</span><br><span class="line">    <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">@proxy</span>;</span><br><span class="line">    <span class="attribute">location</span> <span class="variable">@proxy</span> &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://127.0.0.1:8080;</span><br><span class="line">        <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_pass_header</span> Server;</span><br><span class="line">        <span class="attribute">proxy_connect_timeout</span> <span class="number">3s</span>;</span><br><span class="line">        <span class="attribute">proxy_read_timeout</span> <span class="number">10s</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx stop</span><br><span class="line">sudo service nginx start</span><br><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">【注意】如果nginx端口等相关配置更改了，需要执行以上3句命令 ，如果8080端口配置出错，可以改用其他端口，Swift项目中也相应修改</span><br></pre></td></tr></table></figure>
+
+<h2 id="Supervisor"><a href="#Supervisor" class="headerlink" title="Supervisor"></a><a href="https://docs.vapor.codes/2.0/deploy/supervisor/" target="_blank" rel="noopener">Supervisor</a></h2><p>/etc/supervisor/conf.d/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[program:hello]</span><br><span class="line">command=/home/vapor/hello/.build/release/Run serve --env=production</span><br><span class="line">directory=/home/vapor/hello/</span><br><span class="line">user=www-data</span><br><span class="line">stdout_logfile=/var/log/supervisor/%(program_name)-stdout.log</span><br><span class="line">stderr_logfile=/var/log/supervisor/%(program_name)-stderr.log</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">supervisorctl reread</span><br><span class="line">supervisorctl add hello</span><br><span class="line">supervisorctl start hello</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">【注意】  如果执行$supervisorctl start hello后报错，“supervisor: child process was not spawned” ，</span><br><span class="line">可以通过下面的命令来处理</span><br><span class="line"></span><br><span class="line">备用命令</span><br><span class="line">sudo supervisorctl stop all</span><br><span class="line">sudo supervisorctl reread</span><br><span class="line">sudo supervisorctl reload</span><br><span class="line">sudo supervisorctl start all</span><br></pre></td></tr></table></figure>
+
+<h4 id="接口修改上线流程"><a href="#接口修改上线流程" class="headerlink" title="接口修改上线流程"></a>接口修改上线流程</h4><p>本案例通过git管理代码，在后端ubuntu系统项目路径拉取最新最新代码，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
+<p>项目路径下，通过vapor编译成release包 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vapor build --release</span><br></pre></td></tr></table></figure>
+
+<p>如’/home/ubuntu/QsonAppApi/.build/release/Run’，后面会对Run进行访问，涉及权限问题，需要给Run设置权限，避免后续因权限问题报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod a+x /home/ubuntu/QsonAppApi/.build/release/Run</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">然后执行supervisorctl相关命令，步骤常驻后台设置</span><br></pre></td></tr></table></figure>
+
+<p>其他说明：<br><code>cat /etc/supervisor/conf.d/api.conf</code> 可以查看supervisor接口相关配置,也可把‘user=www-data’去掉</p>
+<pre><code>
+
+</code></pre>
+        </section>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Qson</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Qson.com/2017/07/16/vapor 和swift 搭建api接口/">http://Qson.com/2017/07/16/vapor 和swift 搭建api接口/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/vapor/"># vapor</a>
+                    
+                        <a href="/tags/swift/"># swift</a>
+                    
+                        <a href="/tags/api/"># api</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2017/09/12/使用MethodSwizzle-实现对数组、字典-等系统方法的安全校验-遇到的坑/">iOS：使用MethodSwizzle 实现对数组、字典 等系统方法的安全校验 遇到的坑</a>
+            
+            
+            <a class="next" rel="next" href="/2017/07/08/无忧的使用KVO/">iOS：无忧的使用KVO</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Qson | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
