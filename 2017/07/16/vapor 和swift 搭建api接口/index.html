@@ -11,7 +11,7 @@
     <meta name="keywords" content="iOS，flutter,前端">
 
 
-<title>vapor 和swift 搭建api接口 | Qson</title>
+<title>vapor和swift 搭建api接口 | Qson</title>
 
 
 
@@ -104,14 +104,14 @@
         <div id="post-toc" class="post-toc">
             <span class="post-toc-title">catalogue</span>
             <div class="post-toc-content">
-                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#vapor-and-swift"><span class="toc-text">vapor and swift</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置域名解析"><span class="toc-text">配置域名解析</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx"><span class="toc-text">nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Supervisor"><span class="toc-text">Supervisor</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#接口修改上线流程"><span class="toc-text">接口修改上线流程</span></a></li></ol></li>
-            </div>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#vapor-and-swift"><span class="toc-text">vapor and swift</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置域名解析"><span class="toc-text">配置域名解析</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx"><span class="toc-text">nginx</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Supervisor"><span class="toc-text">Supervisor</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#接口修改上线流程"><span class="toc-text">接口修改上线流程</span></a></li></ol></li></ol>
+            </li></div>
         </div>
     
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">vapor 和swift 搭建api接口</h1>
+            <h1 class="post-title">vapor和swift 搭建api接口</h1>
             
                 <div class="post-meta">
                     
@@ -138,7 +138,7 @@
         </header>
 
         <section class="post-content">
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以下是自己利用vapor框架，将swift写的api项目部署到后台云服务器中，总结的步骤，每台机器环境不一样，仅供参考。</span><br></pre></td></tr></table></figure>
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以下是利用vapor框架，将swift写的api项目部署到后台云服务器中，总结的步骤，每台机器环境不一样，仅供参考。</span><br></pre></td></tr></table></figure>
 
 <h3 id="vapor-and-swift"><a href="#vapor-and-swift" class="headerlink" title="vapor and swift"></a>vapor and swift</h3><p>mysql | nginx | psql | swiftenv | </p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update </span><br><span class="line">$ sudo apt-get upgrade</span><br><span class="line">$ <span class="built_in">eval</span> <span class="string">"<span class="variable">$(curl -sL https://apt.vapor.sh)</span>"</span></span><br><span class="line">$ sudo apt-get install swift vapor</span><br><span class="line">$ sudo apt-get install nginx</span><br><span class="line">$ sudo apt-get install supervisor</span><br></pre></td></tr></table></figure>
@@ -150,7 +150,7 @@
 
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">【注意】如果nginx端口等相关配置更改了，需要执行以上3句命令 ，如果8080端口配置出错，可以改用其他端口，Swift项目中也相应修改</span><br></pre></td></tr></table></figure>
 
-<h2 id="Supervisor"><a href="#Supervisor" class="headerlink" title="Supervisor"></a><a href="https://docs.vapor.codes/2.0/deploy/supervisor/" target="_blank" rel="noopener">Supervisor</a></h2><p>/etc/supervisor/conf.d/</p>
+<h3 id="Supervisor"><a href="#Supervisor" class="headerlink" title="Supervisor"></a><a href="https://docs.vapor.codes/2.0/deploy/supervisor/" target="_blank" rel="noopener">Supervisor</a></h3><p>/etc/supervisor/conf.d/</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[program:hello]</span><br><span class="line">command=/home/vapor/hello/.build/release/Run serve --env=production</span><br><span class="line">directory=/home/vapor/hello/</span><br><span class="line">user=www-data</span><br><span class="line">stdout_logfile=/var/log/supervisor/%(program_name)-stdout.log</span><br><span class="line">stderr_logfile=/var/log/supervisor/%(program_name)-stderr.log</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">supervisorctl reread</span><br><span class="line">supervisorctl add hello</span><br><span class="line">supervisorctl start hello</span><br></pre></td></tr></table></figure>
@@ -166,10 +166,8 @@
 <p>如’/home/ubuntu/QsonAppApi/.build/release/Run’，后面会对Run进行访问，涉及权限问题，需要给Run设置权限，避免后续因权限问题报错</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod a+x /home/ubuntu/QsonAppApi/.build/release/Run</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">然后执行supervisorctl相关命令，步骤常驻后台设置</span><br></pre></td></tr></table></figure>
 
-<p>其他说明：<br><code>cat /etc/supervisor/conf.d/api.conf</code> 可以查看supervisor接口相关配置,也可把‘user=www-data’去掉</p>
-<pre><code>
+<p>其他说明：<br><code>cat /etc/supervisor/conf.d/api.conf</code> 可以查看supervisor接口相关配置,也可把‘user=www-data’去掉<br>```</p>
 
-</code></pre>
         </section>
 
         
