@@ -11,7 +11,7 @@
     <meta name="keywords" content="iOS，flutter,前端">
 
 
-<title>iOS：百川电商SDK For iOS接入说明及注意点 | Qson</title>
+<title>iOS：百川电商SDK 接入说明及注意点 | Qson</title>
 
 
 
@@ -111,7 +111,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">iOS：百川电商SDK For iOS接入说明及注意点</h1>
+            <h1 class="post-title">iOS：百川电商SDK 接入说明及注意点</h1>
             
                 <div class="post-meta">
                     
@@ -186,12 +186,12 @@
 
 </li>
 </ul>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">自定义WebView显示详情页</span><br><span class="line"></span><br><span class="line">id&lt;AlibcTradePage&gt; page = [AlibcTradePageFactory itemDetailPage: @”123456”];</span><br><span class="line">//淘客信息</span><br><span class="line">AlibcTradeTaokeParams *taoKeParams=[[AlibcTradeTaokeParams alloc] init];</span><br><span class="line">taoKeParams.pid= nil;</span><br><span class="line">//打开方式</span><br><span class="line">AlibcTradeShowParams* showParam = [[AlibcTradeShowParams alloc] init];</span><br><span class="line">showParam.openType = AlibcOpenTypeAuto;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">// YourWebViewController类中,webview的delegate设置不能放在viewdidload里面,必须在init的时候,否则函数调用的时候还是nil</span><br><span class="line">  YourTradeWebViewController* myView = [[YourTradeWebViewController alloc] init];</span><br><span class="line">   </span><br><span class="line"> </span><br><span class="line"> NSInteger ret = [[AlibcTradeSDK sharedInstance].tradeService show: myView webView: myView.webView page:page showParams:showParam taoKeParams: taoKeParams trackParam:nil tradeProcessSuccessCallback:self.onTradeSuccess tradeProcessFailedCallback:self.onTradeFailure];</span><br><span class="line"> //返回1,说明h5打开,否则不应该展示页面</span><br><span class="line"> if (ret == 1) &#123;</span><br><span class="line">       [self.navigationController pushViewController:view animated:YES];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></code></pre><h4 id="注意点："><a href="#注意点：" class="headerlink" title="注意点："></a>注意点：</h4><p>官网文档基本讲的非常清楚，但正常结果才会遇到一点坑，这边在最后给大家讲讲我在对接过程中遇到的问题，帮大家规避，我遇到的问题也话了不少时间查找，阿里的SDK有个毛病，就是客服太难联系上，而且只留个旺旺群，还得下载个旺信，加群，然后群里也没人回复解答。</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">自定义WebView显示详情页</span><br><span class="line"></span><br><span class="line">id&lt;AlibcTradePage&gt; page = [AlibcTradePageFactory itemDetailPage: @”123456”];</span><br><span class="line">//淘客信息</span><br><span class="line">AlibcTradeTaokeParams *taoKeParams=[[AlibcTradeTaokeParams alloc] init];</span><br><span class="line">taoKeParams.pid= nil;</span><br><span class="line">//打开方式</span><br><span class="line">AlibcTradeShowParams* showParam = [[AlibcTradeShowParams alloc] init];</span><br><span class="line">showParam.openType = AlibcOpenTypeAuto;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">// YourWebViewController类中,webview的delegate设置不能放在viewdidload里面,必须在init的时候,否则函数调用的时候还是nil</span><br><span class="line">  YourTradeWebViewController* myView = [[YourTradeWebViewController alloc] init];</span><br><span class="line">   </span><br><span class="line"> </span><br><span class="line"> NSInteger ret = [[AlibcTradeSDK sharedInstance].tradeService show: myView webView: myView.webView page:page showParams:showParam taoKeParams: taoKeParams trackParam:nil tradeProcessSuccessCallback:self.onTradeSuccess tradeProcessFailedCallback:self.onTradeFailure];</span><br><span class="line"> //返回1,说明h5打开,否则不应该展示页面</span><br><span class="line"> if (ret == 1) &#123;</span><br><span class="line">       [self.navigationController pushViewController:view animated:YES];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></code></pre><h4 id="注意点："><a href="#注意点：" class="headerlink" title="注意点："></a>注意点：</h4><p>官网文档基本讲的非常清楚，但在开发中才会遇到一点坑，这边在最后给大家讲讲我在对接过程中遇到的问题，帮大家规避，我遇到的问题也花了不少时间解决，阿里的SDK有个毛病，就是客服太难联系上，而且只留个旺旺群，还得下载个旺信，加群，然后群里也没人回复解答，最近自己只能靠自己。</p>
 <ul>
-<li>安全图片，如果不是你接的SDK，或者未对该图片了解和备注，很可能把图片当成废弃的删了，同事就遇到这个问题，删了APP上线无法跳转到手淘，比较坑的一点，在这里特别提醒大家一下，建议在项目中用个文件夹装着，引入项目中，文件夹后面加上中文备注。<br><img src="/image/15664561394389/Snip20190822_6.png" alt="Snip20190822_6"></li>
+<li><code>安全图片</code>，如果不是你接的SDK，或者未对该图片了解和备注，很可能把图片当成废弃的删了，有朋友就遇到这个问题，删了APP上线无法跳转到手淘，就比较坑了，在这里特别提醒大家一下，建议在项目中用个文件夹装着，引入项目中，文件夹后面加上中文备注。<br><img src="/image/15664561394389/Snip20190822_6.png" alt="Snip20190822_6"></li>
 </ul>
 <ul>
-<li>backUrl设置有误，导致跳转到手淘，然后点击返回，回不来App</li>
+<li><code>backUrl</code>设置有误，导致跳转到手淘，然后点击返回，回不来App</li>
 </ul>
 <p><img src="/image/15664561394389/Snip20190822_7.png" alt="Snip20190822_7"><br>    上面是官方文档的写法，一开始也是对照文档这么配置backUrl，结果就是在手淘点返回一直回不来，期间花了不少时间，重新对文档，查配置情况，一无所获。后来试着改成下面这样，就OK了!<br><img src="/image/15664561394389/Snip20190822_9.png" alt="Snip20190822_9"></p>
 <p>希望这篇文章能给到大家一些帮助，如有疑问欢迎一同来学习交流。QQ群:912759811。</p>
