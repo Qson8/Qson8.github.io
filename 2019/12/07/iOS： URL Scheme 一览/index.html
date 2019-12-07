@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
+
+
+    <meta name="keywords" content="iOS，flutter,前端">
+
+
+<title>iOS： URL Scheme 一览 | Qson</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Qson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Qson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">iOS： URL Scheme 一览</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Qson</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十二月 7, 2019&nbsp;&nbsp;14:15:07</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/iOS/">iOS</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <section class="post-content">
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line">QQ mqq://</span><br><span class="line">微信是 weixin://</span><br><span class="line">网易新闻 newsapp://</span><br><span class="line">淘宝 taobao://</span><br><span class="line">点评 dianping:// dianping://search</span><br><span class="line">微博 sinaweibo://</span><br><span class="line">weico微博 weico://</span><br><span class="line">支付宝 alipay://</span><br><span class="line">豆瓣fm： doubanradio://</span><br><span class="line">微盘 sinavdisk://</span><br><span class="line">网易公开课 ntesopen://</span><br><span class="line">美团 imeituan://</span><br><span class="line">人人 renren://</span><br><span class="line">我查查 wcc://</span><br><span class="line">1号店 wccbyihaodian://</span><br><span class="line">有道词典 yddictproapp://</span><br><span class="line">知乎 zhihu://</span><br><span class="line">优酷 youku://</span><br><span class="line">ZAKER zakeripad://</span><br><span class="line">mdict mdict://</span><br><span class="line">京东hd openApp.jdiPad://</span><br><span class="line">易迅 icson://；yixunipad://</span><br><span class="line">wunderlist wunderlist://</span><br><span class="line">支付宝 alipay://</span><br><span class="line">查找朋友 grenada://；findmyfriends://；fmf1://</span><br><span class="line">查找iphone fmip1://</span><br><span class="line">触宝拨号：dialer://</span><br><span class="line">蜂窝网络：prefs:root=MOBILE_DATA_SETTINGS_ID</span><br><span class="line">WIFI：prefs:root=WIFI（WIFI这几个字母一定要大写）</span><br><span class="line">定位服务：prefs:root=LOCATION_SERVICES</span><br><span class="line">备忘录：mobilenotes://</span><br><span class="line">高德地图：iosamap://</span><br><span class="line">今日头条 snssdk141://</span><br><span class="line">挖财记账 wacai://</span><br><span class="line">QQ音乐 :QQmusic://</span><br><span class="line">猎豹浏览器:sinaweibosso.422729959://</span><br><span class="line">UC浏览器:ucbrowser://</span><br><span class="line">支付宝:alipay://</span><br><span class="line">优酷:youku://</span><br><span class="line">节奏大师:节奏大师tencentrm://</span><br><span class="line">刀塔传奇:刀塔传奇teiron2273://</span><br><span class="line">天天动听:ttpod://</span><br><span class="line">淘宝taobao://</span><br><span class="line">名片全能王camcard://</span><br><span class="line">支付宝alipay://</span><br><span class="line">豆瓣fm：doubanradio://</span><br><span class="line">微盘 sinavdisk://</span><br><span class="line">网易公开课ntesopen://</span><br><span class="line">我查查 wcc://</span><br><span class="line">1号店wccbyihaodian://</span><br><span class="line">有道词典yddictproapp://</span><br><span class="line">知乎zhihu://</span><br><span class="line">墨客 com.moke.moke-1://</span><br><span class="line">名片全能王 camcard://</span><br><span class="line">扫描全能王 camscanner://</span><br><span class="line">12306订票助手 trainassist://</span><br><span class="line">金山词霸 com.kingsoft.powerword.6://</span><br><span class="line">节奏大师 tencentrm://</span><br><span class="line">凤凰新闻 comIfeng3GifengNews://</span><br><span class="line">高铁管家 gtgj://</span><br><span class="line">飞信 fetion://</span><br><span class="line">豆瓣FM doubanradio://</span><br><span class="line">大智慧 dzhiphone://</span><br><span class="line">布卡漫画 buka://</span><br><span class="line">爱奇艺PPS ppstream://</span><br><span class="line">哔哩哔哩动画 bilibili://</span><br><span class="line">56视频 com.56Video://</span><br><span class="line">365日历 rili365://</span><br><span class="line">58同城 wbmain://</span><br><span class="line">遇见 iaround://</span><br><span class="line">陌陌 momochat://</span><br><span class="line">旺旺卖家版 wangwangseller://</span><br><span class="line">有道词典 yddict://</span><br><span class="line">掌阅iReader iReader://</span><br><span class="line">艺龙旅行 elongIPhone://</span><br><span class="line">迅雷+迅雷云播 thunder://</span><br><span class="line">熊猫公交 wb1405365637://</span><br><span class="line">携程无线 CtripWireless://</span><br><span class="line">无线苏州 SuZhouTV://</span><br><span class="line">唯品会 vipshop://</span><br><span class="line">微视 weishiiosscheme://</span><br><span class="line">微拍 wpweipai://</span><br><span class="line">旺信 wangxin://</span><br><span class="line">网易公开课 ntesopen://</span><br><span class="line">网易将军令 netease-mkey://</span><br><span class="line">万年历 youloft.419805549://</span><br><span class="line">土豆视频 tudou://</span><br><span class="line">同花顺 amihexin://</span><br><span class="line">天涯社区 tianya://</span><br><span class="line">天气通Pro sinaweatherpro://</span><br><span class="line">天气通 sinaweather://</span><br><span class="line">墨迹天气 rm434209233MojiWeather://</span><br><span class="line">腾讯新闻 qqnews://</span><br><span class="line">腾讯微云 weiyun://</span><br><span class="line">腾讯地图 sosomap://</span><br><span class="line">淘宝旅行 taobaotravel://</span><br><span class="line">人人 renrenios://</span><br><span class="line">蜻蜓FM qtfmp://</span><br><span class="line">浦发银行 wx1cb534bb13ba3dbd://</span><br><span class="line">招商银行 cmbmobilebank://</span><br><span class="line">支付宝 alipay://</span><br><span class="line">建设银行 wx2654d9155d70a468://</span><br><span class="line">工商银行 com.icbc.iphoneclient://</span><br><span class="line">酷我音乐 com.kuwo.kwmusic.kwmusicForKwsing://</span><br><span class="line">酷狗音乐 kugouURL://</span><br><span class="line">京东 openApp.jdMobile://</span><br><span class="line">QQ音乐 qqmusic://</span><br><span class="line">QQ斗地主 tencent382://</span><br><span class="line">QQ浏览器 mttbrowser://</span><br><span class="line">QQ安全中心 qmtoken://</span><br><span class="line">QQ国际版 mqqiapi://</span><br><span class="line">PPTV pptv://</span><br><span class="line">爱奇艺视频 qiyi-iphone://</span><br><span class="line">暴风影音 com.baofeng.play://</span><br><span class="line">保卫萝卜2 wb2217954495://</span><br><span class="line">保卫萝卜 wb1308702128://</span><br><span class="line">百度云 baiduyun://</span><br><span class="line">百度音乐 baidumusic://</span><br><span class="line">百度视频 baiduvideoiphone:// 或 bdviphapp://</span><br><span class="line">百度糯米 bainuo://</span><br><span class="line">百度魔图 photowonder://</span><br><span class="line">百度魔拍 wondercamera://</span><br><span class="line">百度地图 baidumap://</span><br><span class="line">百度导航 bdNavi://</span><br><span class="line">百度视频hd BaiduVideoiPad://；baiduvideoipadapp://</span><br><span class="line">百度相册hd BaiDuCloudAlbumHD://</span><br><span class="line">百度浏览器hd bdbrowser://</span><br><span class="line">百度文库hd bdwenku://</span><br><span class="line">搜狗输入法 com.sogou.sogouinput://</span><br><span class="line">搜狐视频 sohuvideo-iphone:// 或 sohuvideo://</span><br><span class="line">搜狐新闻 sohunews://</span><br><span class="line">随手记 FDMoney://</span><br><span class="line">腾讯企业邮箱 qqbizmailDistribute2://</span><br><span class="line">腾讯手机管家 mqqsecure://</span><br><span class="line">腾讯视频 tenvideo:// 或 tenvideo2:// 或 tenvideo3://</span><br><span class="line">腾讯微博 TencentWeibo://</span><br><span class="line">天猫 tmall://</span><br><span class="line">天天星连萌 tencent100689806://</span><br><span class="line">天天爱消除 tencent100689805://</span><br><span class="line">天天酷跑 tencent100692648://</span><br><span class="line">天天飞车 tencent100695850://</span><br><span class="line">天天动听 ttpod://</span><br><span class="line">威锋网 com.weiphone.forum://</span><br><span class="line">新浪微博 weibo:// 或 sinaweibo://</span><br><span class="line">网易邮箱 neteasemail://</span><br><span class="line">百度输入法 BaiduIMShop://</span><br><span class="line">C浏览器 ucbrowser://</span><br><span class="line">一个one clover-one://</span><br><span class="line">当当hd dangdanghd://；ddhd://</span><br><span class="line">大众点评hd dianpinghd://</span><br><span class="line">多看阅读 duokan-reader://</span><br><span class="line">艺龙旅行hd elongiPad://</span><br><span class="line">圈点hd skitch://</span><br><span class="line">印象笔记hd enx://</span><br><span class="line">电话 mobilephone://</span><br><span class="line">备忘录 mobilenotes://</span><br><span class="line">设置 prefs:root=SETTING</span><br><span class="line">定位服务 prefs:root=LOCATION_SERVICES</span><br><span class="line">E-Mail MESSAGE://</span><br><span class="line">popAgraph popagraphtumblr://</span><br><span class="line">dropbox db-auth://；dbapi-1://；dbapi-2://；dbapi-3://</span><br><span class="line">goodreader ghttp://；ghttps://；grhttp://；grhttps://；giwhttp://；giwhttps://；gropen://；com.goodreader.sendtogr://</span><br><span class="line">ifttt ifttt://</span><br><span class="line">名片全能王hd camcard://；CamCardHDOpenAPI://</span><br><span class="line">拉手团购hd LaShouGroupHDPay://</span><br><span class="line">美团hd iMeituan://evermemo evermemo://</span><br><span class="line">网易云课堂 wangyiyunketang://</span><br><span class="line">网易公开课 ntesopen://</span><br><span class="line">订票助手2 trainassistfree://</span><br><span class="line">pcalc lite pcalc://</span><br><span class="line">爱奇艺视频 QIYIHD-iPad://</span><br><span class="line">三国kill sgk://</span><br><span class="line">扇贝新闻 shanbaynews://</span><br><span class="line">扇贝单词 shanbay://</span><br><span class="line">扇贝单词hd shanbaywordshd://</span><br><span class="line">skype skype://</span><br><span class="line">搜狐视频hd sohu-SViPad://；sohuvideohd://</span><br><span class="line">teamviewer:teamviewer8://</span><br><span class="line">格志 griddiary://；sumi-interactive://</span><br><span class="line">淘宝hd taobao://；itaobao://；taobaohd://</span><br><span class="line">天猫 tmall://</span><br><span class="line">腾讯视频hd tenvideohd://；tenvideo2://</span><br><span class="line">qq通讯录 tencentappqqpim://</span><br><span class="line">同步推正版HD tbtui://；tuihd://</span><br><span class="line">航旅纵横pro umetrippro://mathpad myscriptmathpad://</span><br><span class="line">雅虎天气！ yweather://</span><br><span class="line">一号店 ipadstore://</span><br><span class="line">优酷hd youkuhd://</span><br><span class="line">知乎 zhihu://</span><br><span class="line">欧陆词典pro eudic://</span><br><span class="line">拓词 towordsp://</span><br><span class="line">TuneIn Radio tunein:// 或 tuneinpro://</span><br><span class="line">OfficeSuite mobisystemsofficesuite://</span><br><span class="line">WPS Office KingsoftOfficeApp://</span><br><span class="line">Line line://1Password onepassword://</span><br><span class="line">Clear(著名的Todo应用) clearapp://</span><br><span class="line">Chrome谷歌浏览器 googlechrome://</span><br><span class="line">Calendars 5 calendars://</span><br><span class="line">PDF Expert 5 pdfexpert5presence://</span><br><span class="line">Documents 5 rdocs://</span><br><span class="line">nPlayer nplayer-http://</span><br><span class="line">GPlayer gplayer://</span><br><span class="line">AVPlayer HD AVPlayerHD://</span><br><span class="line">AVPlayer AVPlayer://</span><br><span class="line">Ace Player aceplayer://</span><br></pre></td></tr></table></figure>
+        </section>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Qson</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Qson.com/2019/12/07/iOS： URL Scheme 一览/">http://Qson.com/2019/12/07/iOS： URL Scheme 一览/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/iOS/"># iOS</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/08/20/iOS：百川电商SDK For iOS接入说明及注意点/">iOS：百川电商SDK 接入说明及注意点</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Qson | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
