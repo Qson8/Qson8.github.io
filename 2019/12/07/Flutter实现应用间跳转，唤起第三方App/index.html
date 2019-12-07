@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
+
+
+    <meta name="keywords" content="iOS，flutter,前端">
+
+
+<title>Flutter实现应用间跳转，唤起第三方App | Qson</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Qson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Qson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div id="post-toc" class="post-toc">
+            <span class="post-toc-title">catalogue</span>
+            <div class="post-toc-content">
+                <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑"><span class="toc-text">逻辑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现"><span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#配置URL-Scheme"><span class="toc-text">| 配置URL Scheme</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编码实现"><span class="toc-text">| 编码实现</span></a></li></ol></li></ol>
+            </div>
+        </div>
+    
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Flutter实现应用间跳转，唤起第三方App</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Qson</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十二月 7, 2019&nbsp;&nbsp;23:33:27</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/iOS/">iOS</a>
+                            
+                                <a href="/categories/iOS/flutter/">flutter</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <section class="post-content">
+            <h4 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h4><p>最近在写的应用需要实现打开微信的功能，对应原生来说这个很容易实现。<br>思路就是：<br>    * iOS需要找到对应App的URL Scheme，配置在项目中<br>    * 检测是否能打开这个App<br>    * 打开App     </p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><h5 id="配置URL-Scheme"><a href="#配置URL-Scheme" class="headerlink" title="| 配置URL Scheme"></a>| 配置URL Scheme</h5><p>iOS需要在项目中配置指定的URL Scheme，可以在<a href="http://blog.520lee.com/2019/12/07/iOS：%20URL%20Scheme%20一览/" target="_blank" rel="noopener">点击这里</a>查看你需要打开应用的URL Scheme，</p>
+<p>提前设置好打开APP的列表，也就是白名单，并配置到工程的 info.plist中去。<br>LSApplicationQueriesSchemes ，加入对应的 URL Scheme，如图<br><img src="/image/jump_app.jpg" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;</span><br><span class="line">	&lt;array&gt;</span><br><span class="line">		&lt;string&gt;wechat&lt;/string&gt;</span><br><span class="line">	&lt;/array&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="编码实现"><a href="#编码实现" class="headerlink" title="| 编码实现"></a>| 编码实现</h5><p>检测是否能打开这个App，并打开app业务实现，我们可以使用url_launcher这个插件，可以到这里搜索<a href="https://pub.dartlang.org/" target="_blank" rel="noopener">https://pub.dartlang.org/</a></p>
+<ul>
+<li>在项目.yaml文件依赖内添加库依赖，vscode保存会自动获得packages,或终端命令：<code>flutter packages get</code>.</li>
+</ul>
+<ul>
+<li>实现调转的逻辑，也可以写在你封装好的公共类里，提供接口出来。可以拷贝下面的代码，在需要调用的地方调用这个方法即可。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">  * 检测是否安装了微信</span><br><span class="line">  * </span><br><span class="line">  * 1. 配置url Scheme</span><br><span class="line">  * 2. 用Application 的canopenUrl 的方法判断 (YES代表已安装)</span><br><span class="line">  */</span><br><span class="line">  _launchURL() async &#123;</span><br><span class="line">    // 1.url Scheme</span><br><span class="line">    const url = &apos;wechat://&apos;;</span><br><span class="line">    </span><br><span class="line">    // 2. 判断当前手机是否安装某app. 能否正常跳转</span><br><span class="line">    if (await canLaunch(url)) &#123;</span><br><span class="line">      // 2.1 正常跳转</span><br><span class="line">      await launch(url);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      // 2.2 不能跳转</span><br><span class="line">      throw &apos;Could not launch $url&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>相关源码可以到github下载：<a href="https://github.com/Qson8/check_app_install" target="_blank" rel="noopener">https://github.com/Qson8/check_app_install</a></p>
+
+        </section>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Qson</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Qson.com/2019/12/07/Flutter实现应用间跳转，唤起第三方App/">http://Qson.com/2019/12/07/Flutter实现应用间跳转，唤起第三方App/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/iOS/"># iOS</a>
+                    
+                        <a href="/tags/flutter/"># flutter</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/12/07/iOS： URL Scheme 一览/">iOS： URL Scheme 一览</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Qson | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
