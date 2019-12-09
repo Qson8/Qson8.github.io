@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
+
+
+    <meta name="keywords" content="iOS，flutter,前端">
+
+
+<title>Flutter基础之Dart语言入门 | Qson</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Qson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Qson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div id="post-toc" class="post-toc">
+            <span class="post-toc-title">catalogue</span>
+            <div class="post-toc-content">
+                <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#语言特性"><span class="toc-text">语言特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运算符"><span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#变量与常量"><span class="toc-text">变量与常量</span></a></li></ol>
+            </div>
+        </div>
+    
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Flutter基础之Dart语言入门</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Qson</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十二月 9, 2019&nbsp;&nbsp;10:17:27</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/flutter/">flutter</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <section class="post-content">
+            <blockquote>
+<p>Dart是Flutter开发语言，学习一门技术，首先要从开发语言开始。本篇开始从开发语言开始，目的是为0基本的朋友能更方便的了解这门开发语言，同时有开发基本的也可以作为笔记查看。</p>
+</blockquote>
+<h4 id="语言特性"><a href="#语言特性" class="headerlink" title="语言特性"></a>语言特性</h4><p>Dart官网：<a href="http://www.dartdoc.cn" target="_blank" rel="noopener">http://www.dartdoc.cn</a></p>
+<p>Dart是一门面向对象的开发语言，所有的对象都继承自Object类， 包括数字numbers、函数function、null也都是对象。</p>
+<p>Dart和Object-C一样也具有动态类型语言特性, 尽量给变量定义一个类型，会更安全，没有显示定义类型的变量在 debug 模式下会类型会是 dynamic(动态的)。</p>
+<p>Dart 在 running 之前解析你的所有代码，指定数据类型和编译时的常量，可以提高运行速度。</p>
+<p>Dart中的类和接口是统一的，类即接口，你可以继承一个类，也可以实现一个类（接口），自然也包含了良好的面向对象和并发编程的支持。</p>
+<p>Dart 提供了顶级函数(如：main())，俗称入口函数。</p>
+<p>Dart 和java不一样，没有 public、private、protected 这些关键字，变量名以”_”开头意味着对它的 lib 是私有的。</p>
+<p>没有初始化的变量都会被赋予默认值 null。</p>
+<p>编程语言并不是孤立存在的，Dart也是这样，他由<strong>语言规范</strong>、<strong>虚拟机</strong>、<strong>类库</strong>和<strong>工具</strong>等组成：</p>
+<ul>
+<li>SDK：SDK 包含 Dart VM、dart2js、Pub、库和工具。</li>
+<li>Dartium：内嵌 Dart VM 的 Chromium ，可以在浏览器中直接执行 dart 代码。</li>
+<li>Dart2js：将 Dart 代码编译为 JavaScript 的工具。</li>
+<li>Dart Editor：基于 Eclipse 的全功能 IDE，并包含以上所有工具。支持代码补全、代码导航、快速修正、重构、调试等功能。</li>
+</ul>
+<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><p><img src="/image/dart_introduction/%E8%BF%90%E7%AE%97%E7%AC%A6.jpg" alt="运算符"></p>
+<p>新运算符</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">..（级联运算符）和 ?.（条件成员访问运算符）以及 ??（判空赋值运算符)</span><br><span class="line">?.   如 Test?.funs 从表达式Test中选择属性funs，除非Test为空（当Test为空时，Test?.funs的值为空)</span><br><span class="line"></span><br><span class="line"><span class="keyword">as</span>  类型转换 (确定是指定类型时才可以使用<span class="keyword">as</span>转换类型)</span><br><span class="line"><span class="keyword">is</span>  如果对象具有指定的类型，则为<span class="keyword">true</span></span><br><span class="line"><span class="keyword">is</span>! 对象不是某个类型</span><br></pre></td></tr></table></figure>
+
+<h4 id="变量与常量"><a href="#变量与常量" class="headerlink" title="变量与常量"></a>变量与常量</h4><p><strong>var</strong><br>Dart是强类型语言. 当var声明一个变量后，Dart在编译时会根据第一次赋值数据的类型类推断其类型。编译完成后其类型就已经被确定。 </p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Dart中的<span class="keyword">var</span>变量一旦赋值，类型遍会确定，则不能再改变其类型。</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> t;</span><br><span class="line">t=<span class="string">"hi world"</span>;</span><br><span class="line"><span class="comment">// 下面代码在dart中会报错，因为变量t的类型已经确定为String，</span></span><br><span class="line"><span class="comment">// 类型一旦确定后则不能再更改其类型。</span></span><br><span class="line">t=<span class="number">1000</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">整型</span><br><span class="line"></span><br><span class="line"><span class="built_in">num</span>(<span class="built_in">int</span> , <span class="built_in">double</span>) </span><br><span class="line">运算符  / (除完的结果是浮点型)   ~/ 取整(除完后取整)</span><br></pre></td></tr></table></figure>
+
+<p><strong>字符串</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> str = ‘ Hello’</span><br><span class="line"><span class="built_in">print</span>(str * <span class="number">5</span>) <span class="comment">// 字符串变量 * 5 表示把变量值拼接了5次返回</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> contains()</span><br><span class="line"><span class="number">2.</span> cusString()</span><br><span class="line"><span class="number">3.</span> indexOf()</span><br><span class="line"><span class="number">4.</span> lastIndexOf()</span><br><span class="line"><span class="number">5.</span> toLowerCase()</span><br><span class="line"><span class="number">6.</span> toUpperCase()</span><br><span class="line"><span class="number">7.</span> trim()</span><br><span class="line"><span class="number">8.</span> trimLeft()</span><br><span class="line"><span class="number">9.</span> trimRight()</span><br><span class="line"><span class="number">10.</span> split()</span><br><span class="line"><span class="number">11.</span> replaceXXX()</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p><strong>三个单引号</strong> 或 <strong>三个双引号</strong> </p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> str = <span class="string">'''Hello</span></span><br><span class="line"><span class="string">                  Dart'''</span>;</span><br><span class="line">                  </span><br><span class="line"><span class="built_in">String</span> str = <span class="string">"""Hello</span></span><br><span class="line"><span class="string">                  Dart"””;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 <strong>r</strong> 创建原始字符串</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> str = <span class="string">r'Hello \n Dart'</span>; <span class="comment">// "\n"不会被转义</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>单引号里面嵌套单引号</strong>，或者<strong>双引号里面嵌套双引号</strong>，必须在前面加反斜杠</p>
+<p><img src="/image/dart_introduction/F2ED24C2-F022-4922-8240-B3E7C5FE638E.png" alt="F2ED24C2-F022-4922-8240-B3E7C5FE638E"></p>
+<p><strong>List(数组)</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">创建<span class="built_in">List</span>：<span class="keyword">var</span> list[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">创建不可变的<span class="built_in">List</span>：<span class="keyword">var</span> list = <span class="keyword">const</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">构造创建：<span class="keyword">var</span> list=<span class="keyword">new</span>  <span class="built_in">List</span>();</span><br><span class="line">常用操作</span><br></pre></td></tr></table></figure>
+
+<p><strong>Map 字典</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">创建不可变的map</span><br><span class="line"><span class="built_in">List</span>：<span class="keyword">var</span> map = <span class="keyword">const</span> &#123;<span class="number">1</span>:”<span class="number">123</span>”,<span class="number">2</span>:”<span class="number">456</span>”&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>赋值运算符</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">??=  </span><br><span class="line">b ??= <span class="number">100</span>; <span class="comment">// 表示左侧变量为空时进行赋值，否则不赋值</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>表达式</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?? </span><br><span class="line">运算符 expr1 ?? expr2<span class="comment">// 意思第一个表达式expr1不为空，则直接使用expr1，如果为空，则使用expr2；</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>插值表达式</strong> : ${expression}</p>
+<p>使用 ${ } 表示插件表达式，单个变量可省略 { }。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">int</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">" a + b = <span class="subst">$&#123;a + b&#125;</span> "</span>); <span class="comment">// 输出 a + b = 3</span></span><br><span class="line"><span class="built_in">print</span>(“ a = $b”); 等同于 <span class="built_in">print</span>(“ a = $&#123;b&#125;”);  <span class="comment">// 可以省略大括号</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>可选参数</strong></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">可选参数基于名称&#123;&#125;</span><br><span class="line">可选命名参数：&#123;param1,param2,...&#125;</span><br><span class="line"></span><br><span class="line">可选参数基于位置[]</span><br><span class="line">可选命名参数：[param1,param2,...]</span><br></pre></td></tr></table></figure>
+
+<p><strong>dynamic</strong> 和 *<em>Object *</em><br>Dynamic和Object与var功能相似，都会在赋值时自动进行类型推断，不同在于，赋值后可以改变类型。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dynamic</span> t;</span><br><span class="line">t=<span class="string">"hi world"</span>;</span><br><span class="line"><span class="comment">//下面代码没有问题</span></span><br><span class="line">t=<span class="number">1000</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>final</strong> 和 <strong>const</strong><br>如果未打算更改一个变量，那么使用final 或 const，不是var ， 也不是一个类型，<br>一个final变量只能被设置一次， 两者区别在于：const变量是一个编译时常量，final变量在第一次使用时被初始化，被final或const修饰的变量，变量类型可以省略，类型根据值而定，如：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以省略String这个类型声明</span></span><br><span class="line"><span class="keyword">final</span> str = <span class="string">"hi world"</span>;</span><br><span class="line"><span class="comment">//final String str = "hi world"; </span></span><br><span class="line"><span class="keyword">const</span> str1 = <span class="string">"hi world"</span>;</span><br><span class="line"><span class="comment">//const String str1 = "hi world";</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><figcaption><span>的值只能被设定一次。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">```const``` 是一个编译时的常量，可以通过 const 来创建常量值，var c=const[];，这里 c 还是一个变量，只是被赋值了一个常量值，它还是可以赋其它值。实例变量可以是 final，但不能是 const。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**级联操作**</span><br><span class="line"></span><br><span class="line">```dart</span><br><span class="line">// 使用 .. 级联操作 可对同一对象执行一系列操作</span><br><span class="line">Dio()</span><br><span class="line">..options.baseUrl = &apos;http://app4.jinriaozhou.com/&apos;</span><br><span class="line">..options.connectTimeout = 500</span><br><span class="line">..options.receiveTimeout = 300;</span><br></pre></td></tr></table></figure>
+
+
+        </section>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Qson</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Qson.com/2019/12/09/dart_introduction/">http://Qson.com/2019/12/09/dart_introduction/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/flutter/"># flutter</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/12/07/Flutter实现应用间跳转，唤起第三方App/">Flutter实现应用间跳转，唤起第三方App</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Qson | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
