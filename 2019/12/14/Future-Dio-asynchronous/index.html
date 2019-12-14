@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
+
+
+    <meta name="keywords" content="iOS，flutter,前端">
+
+
+<title>Flutter基础之Dart语言入门:Future异步使用 | Qson</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Qson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Qson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div id="post-toc" class="post-toc">
+            <span class="post-toc-title">catalogue</span>
+            <div class="post-toc-content">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Future"><span class="toc-text">Future</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-then"><span class="toc-text">Future.then</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-catchError"><span class="toc-text">Future.catchError</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-whenComplete"><span class="toc-text">Future.whenComplete</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-wait"><span class="toc-text">Future.wait</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#使用async-await消除callback-hell"><span class="toc-text">使用async/await消除callback hell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stream"><span class="toc-text">Stream</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络请求-Future应用"><span class="toc-text">网络请求 Future应用</span></a></li>
+            </div>
+        </div>
+    
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Flutter基础之Dart语言入门:Future异步使用</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Qson</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十二月 14, 2019&nbsp;&nbsp;11:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/flutter/">flutter</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <section class="post-content">
+            <p>Dart类库有非常多的返回Future 或者 Stream 对象的函数，这些函数被称为异步函数，它们只会被设置好一些好事操作之后返回，如IO操作。</p>
+<p>async 和 await 关键词支持异步编程</p>
+<h2 id="Future"><a href="#Future" class="headerlink" title="Future"></a>Future</h2><p>用于处理异步操作，异步处理成功了就执行成功的操作，异步处理失败就捕获错误或者停止后续操作，一个Future只会对应一个结果，要么成功，要么失败。</p>
+<p>Future的所有API的返回值仍然是一个<strong>Future对象</strong>，所以可以很方便的进行链式调用。</p>
+<h4 id="Future-then"><a href="#Future-then" class="headerlink" title="Future.then"></a>Future.then</h4><p>模拟延时操作<br><code>then</code>中接收异步结果并打印结果</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Future.delayed(<span class="keyword">new</span> <span class="built_in">Duration</span>(seconds: <span class="number">2</span>),()&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="string">"hi world!"</span>;</span><br><span class="line">&#125;).then((data)&#123;</span><br><span class="line">   <span class="built_in">print</span>(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Future-catchError"><a href="#Future-catchError" class="headerlink" title="Future.catchError"></a>Future.catchError</h4><p>如果异步任务发生错误，可以在<code>catchError</code>中捕获错误，</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Future.delayed(<span class="keyword">new</span> <span class="built_in">Duration</span>(seconds: <span class="number">2</span>),()&#123;</span><br><span class="line">   <span class="comment">//return "hi world!";</span></span><br><span class="line">   <span class="keyword">throw</span> AssertionError(<span class="string">"Error"</span>);  </span><br><span class="line">&#125;).then((data)&#123;</span><br><span class="line">   <span class="comment">//执行成功会走到这里  </span></span><br><span class="line">   <span class="built_in">print</span>(<span class="string">"success"</span>);</span><br><span class="line">&#125;).catchError((e)&#123;</span><br><span class="line">   <span class="comment">//执行失败会走到这里  </span></span><br><span class="line">   <span class="built_in">print</span>(e);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>then 接收结果，catchError铺货异常，但并非只有catchError回调才能铺货错误，then方法还有一个可选参数onError，也可以铺货异常</p>
+<h4 id="Future-whenComplete"><a href="#Future-whenComplete" class="headerlink" title="Future.whenComplete"></a>Future.whenComplete</h4><p>无论异步任务执行成功或失败都需要做一些事时，</p>
+<ol>
+<li>可以分别在 <code>then</code> 或 <code>catchError</code>中关闭以下对话框</li>
+<li>可以使用Future的whenComplete回调</li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Future.delayed(<span class="keyword">new</span> <span class="built_in">Duration</span>(seconds: <span class="number">2</span>),()&#123;</span><br><span class="line">   <span class="comment">//return "hi world!";</span></span><br><span class="line">   <span class="keyword">throw</span> AssertionError(<span class="string">"Error"</span>);</span><br><span class="line">&#125;).then((data)&#123;</span><br><span class="line">   <span class="comment">//执行成功会走到这里 </span></span><br><span class="line">   <span class="built_in">print</span>(data);</span><br><span class="line">&#125;).catchError((e)&#123;</span><br><span class="line">   <span class="comment">//执行失败会走到这里   </span></span><br><span class="line">   <span class="built_in">print</span>(e);</span><br><span class="line">&#125;).whenComplete(()&#123;</span><br><span class="line">   <span class="comment">//无论成功或失败都会走到这里</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Future-wait"><a href="#Future-wait" class="headerlink" title="Future.wait"></a>Future.wait</h4><p>如果需要等待多个异步任务都执行结束后做某些操作，可以使用Future.wait,它接受一个Future数组参数，</p>
+<ul>
+<li>只有数组中所有的Future都执行成功后，才会触发then的成功回调，</li>
+<li>只要有一个Future执行失败，就会触发错误回调</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Future.wait([</span><br><span class="line">  <span class="comment">// 2秒后返回结果  </span></span><br><span class="line">  Future.delayed(<span class="keyword">new</span> <span class="built_in">Duration</span>(seconds: <span class="number">2</span>), () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">// 4秒后返回结果  </span></span><br><span class="line">  Future.delayed(<span class="keyword">new</span> <span class="built_in">Duration</span>(seconds: <span class="number">4</span>), () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">" world"</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">]).then((results)&#123;</span><br><span class="line">  <span class="built_in">print</span>(results[<span class="number">0</span>]+results[<span class="number">1</span>]);</span><br><span class="line">&#125;).catchError((e)&#123;</span><br><span class="line">  <span class="built_in">print</span>(e);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用async-await消除callback-hell"><a href="#使用async-await消除callback-hell" class="headerlink" title="使用async/await消除callback hell"></a>使用async/await消除callback hell</h2><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">task() <span class="keyword">async</span> &#123;</span><br><span class="line">   <span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="built_in">String</span> id = <span class="keyword">await</span> login(<span class="string">"alice"</span>,<span class="string">"******"</span>);</span><br><span class="line">    <span class="built_in">String</span> userInfo = <span class="keyword">await</span> getUserInfo(id);</span><br><span class="line">    <span class="keyword">await</span> saveUserInfo(userInfo);</span><br><span class="line">    <span class="comment">//执行接下来的操作   </span></span><br><span class="line">   &#125; <span class="keyword">catch</span>(e)&#123;</span><br><span class="line">    <span class="comment">//错误处理   </span></span><br><span class="line">    <span class="built_in">print</span>(e);   </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>async</code>用来表示函数时异步，定义的函数会返回一个Future对象<br><code>await</code>后面是一个Future，表示等待该异步任务完成，异步完成后才会往下走，await必须出现在async函数内部<br>async/await只是一个语法糖，编译器或解释器最终会将其转化为一个Promise(Future)的调用链。</p>
+<h2 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h2><p>Stream也是用于接收异步事件数据，和Future不同的是，它可以接收多个异步操作的结果（成功或失败），也就是说，在执行异步任务时，可以通过多次触发成功或失败事件来传递结果数据或错误异常，Stream常用于会多次读取数据的异步任务场景，如网络内容下载，文档读写等</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Stream.fromFutures([</span><br><span class="line">  <span class="comment">// 1秒后返回结果</span></span><br><span class="line">  Future.delayed(<span class="keyword">new</span> <span class="built_in">Duration</span>(seconds: <span class="number">1</span>), () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello 1"</span>;</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">// 抛出一个异常</span></span><br><span class="line">  Future.delayed(<span class="keyword">new</span> <span class="built_in">Duration</span>(seconds: <span class="number">2</span>),()&#123;</span><br><span class="line">    <span class="keyword">throw</span> AssertionError(<span class="string">"Error"</span>);</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">// 3秒后返回结果</span></span><br><span class="line">  Future.delayed(<span class="keyword">new</span> <span class="built_in">Duration</span>(seconds: <span class="number">3</span>), () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello 3"</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">]).listen((data)&#123;</span><br><span class="line">   <span class="built_in">print</span>(data);</span><br><span class="line">&#125;, onError: (e)&#123;</span><br><span class="line">   <span class="built_in">print</span>(e.message);</span><br><span class="line">&#125;,onDone: ()&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码依次输出</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">I/flutter (<span class="number">17666</span>): hello <span class="number">1</span></span><br><span class="line">I/flutter (<span class="number">17666</span>): Error</span><br><span class="line">I/flutter (<span class="number">17666</span>): hello <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="网络请求-Future应用"><a href="#网络请求-Future应用" class="headerlink" title="网络请求 Future应用"></a>网络请求 Future应用</h2><p>异步最应用在网络请求，Flutter同样需要异步请求获取数据，<code>dio</code>是Flutter常用的网络请求插件，可以到pub.dev搜索查看。<br>同样项目中引入改插件，直接在<code>pubspec.yaml</code>文件中添加依赖<br><img src="/image/Future-Dio-asynchronous/Future-Dio-asynchronous-png1.png" alt><br>在使用的地方引入：<br><img src="/image/Future-Dio-asynchronous/Future-Dio-asynchronous-png2.png" alt></p>
+<p>下面是项目中封装的请求通用类BaseRepository</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 网络请求</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseRepository</span> </span>&#123;</span><br><span class="line">  Future&lt;<span class="built_in">Map</span>&gt; <span class="keyword">get</span>(<span class="built_in">String</span> url, &#123;<span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="keyword">dynamic</span>&gt; queryParams&#125;) <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> nativeD = <span class="keyword">await</span> Bridge.getNetComParams();</span><br><span class="line">    <span class="keyword">var</span> dio = <span class="keyword">new</span> Dio();</span><br><span class="line">    <span class="keyword">final</span> nativeParams = ValueUtil.toMap(nativeD);</span><br><span class="line">    dio.options.baseUrl = nativeParams[<span class="string">'baseUrl'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'sbtype'</span>] = nativeParams[<span class="string">'sbtype'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'sbID'</span>] = nativeParams[<span class="string">'sbID'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'version'</span>] = nativeParams[<span class="string">'version'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'token'</span>] = nativeParams[<span class="string">'token'</span>];</span><br><span class="line">    dio.options.responseType = ResponseType.json;</span><br><span class="line">    <span class="keyword">if</span> (!queryParams.containsKey(<span class="string">'domain_id'</span>)) &#123;</span><br><span class="line">      queryParams[<span class="string">'domain_id'</span>] = nativeParams[<span class="string">'domain_id'</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    log(<span class="string">'get'</span>,</span><br><span class="line">        url: nativeParams[<span class="string">'baseUrl'</span>] + url,</span><br><span class="line">        queryParams: queryParams,</span><br><span class="line">        header: nativeParams);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      Response response = <span class="keyword">await</span> dio.<span class="keyword">get</span>(url, queryParameters: queryParams);</span><br><span class="line">      debugPrint(<span class="string">'请求数据返回:\n<span class="subst">$response</span>'</span>);</span><br><span class="line">      <span class="keyword">return</span> response.data;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="keyword">rethrow</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Future&lt;<span class="built_in">Map</span>&gt; post(<span class="built_in">String</span> url, &#123;<span class="built_in">Map</span> params&#125;) <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> nativeParams = <span class="keyword">await</span> Bridge.getNetComParams();</span><br><span class="line">    <span class="keyword">var</span> dio = <span class="keyword">new</span> Dio();</span><br><span class="line">    dio.options.baseUrl = nativeParams[<span class="string">'baseUrl'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'sbtype'</span>] = nativeParams[<span class="string">'sbtype'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'sbID'</span>] = nativeParams[<span class="string">'sbID'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'version'</span>] = nativeParams[<span class="string">'version'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'token'</span>] = nativeParams[<span class="string">'token'</span>];</span><br><span class="line">    dio.options.responseType = ResponseType.json;</span><br><span class="line">    log(<span class="string">'post'</span>,</span><br><span class="line">        url: nativeParams[<span class="string">'baseUrl'</span>] + url,</span><br><span class="line">        queryParams: params,</span><br><span class="line">        header: nativeParams);</span><br><span class="line">    <span class="keyword">if</span> (!params.containsKey(<span class="string">'domain_id'</span>)) &#123;</span><br><span class="line">      params[<span class="string">'domain_id'</span>] = nativeParams[<span class="string">'domain_id'</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      Response response = <span class="keyword">await</span> dio.post(url, data: params);</span><br><span class="line">      debugPrint(<span class="string">'请求数据返回:\n<span class="subst">$response</span>'</span>);</span><br><span class="line">      <span class="keyword">return</span> response.data;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="keyword">rethrow</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> log(<span class="built_in">String</span> method,</span><br><span class="line">      &#123;<span class="built_in">String</span> url, <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="keyword">dynamic</span>&gt; queryParams, <span class="built_in">Map</span> header&#125;) &#123;</span><br><span class="line">    debugPrint(</span><br><span class="line">        <span class="string">'\nurl: <span class="subst">$url</span>  method: <span class="subst">$method</span>\nheader: <span class="subst">$header</span> \nparams: <span class="subst">$queryParams</span>\n'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>dio相关设置</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 创建dio对象: <span class="keyword">var</span> dio = <span class="keyword">new</span> Dio(); </span><br><span class="line"><span class="number">2.</span> 设置baseUrl: dio.options.baseUrl = <span class="string">'baseUrl'</span>;</span><br><span class="line"><span class="number">3.</span> 设置请求头: </span><br><span class="line">    dio.options.headers[<span class="string">'sbtype'</span>] = nativeParams[<span class="string">'sbtype'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'sbID'</span>] = nativeParams[<span class="string">'sbID'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'version'</span>] = nativeParams[<span class="string">'version'</span>];</span><br><span class="line">    dio.options.headers[<span class="string">'token'</span>] = nativeParams[<span class="string">'token'</span>];</span><br><span class="line"><span class="number">4.</span> 请求方式: dio.options.responseType = ResponseType.json;</span><br><span class="line"><span class="number">5.</span> 设置contentType: dio.options.contentType =</span><br><span class="line">        ContentType.parse(<span class="string">"application/x-www-form-urlencoded"</span>);</span><br><span class="line"><span class="number">6.</span> 发送请求: </span><br><span class="line">    Response response = <span class="keyword">await</span> dio.post(url, data: params);</span><br><span class="line">    debugPrint(<span class="string">'请求数据返回:\n<span class="subst">$response</span>'</span>);</span><br><span class="line">    <span class="keyword">return</span> response.data;</span><br></pre></td></tr></table></figure>
+
+
+        </section>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Qson</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Qson.com/2019/12/14/Future-Dio-asynchronous/">http://Qson.com/2019/12/14/Future-Dio-asynchronous/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/flutter/"># flutter</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/12/09/apple_technology_outlook_2020/">2020年苹果审核新规及Flutter跨平台技术展望</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Qson | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
