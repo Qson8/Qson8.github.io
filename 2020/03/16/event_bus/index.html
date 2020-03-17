@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Qson的个人技术站,一个会写iOS，flutter,前端的程序猿">
+
+
+    <meta name="keywords" content="iOS，flutter,前端">
+
+
+<title>Flutter之EventBus事件总线 | Qson</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Qson&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Qson&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div id="post-toc" class="post-toc">
+            <span class="post-toc-title">catalogue</span>
+            <div class="post-toc-content">
+                <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-集成插件"><span class="toc-text">1 集成插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-注册订阅者"><span class="toc-text">3 注册订阅者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-触发订阅通知"><span class="toc-text">4 触发订阅通知</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-解除订阅"><span class="toc-text">5 解除订阅</span></a></li></ol>
+            </div>
+        </div>
+    
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Flutter之EventBus事件总线</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Qson</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">三月 16, 2020&nbsp;&nbsp;10:17:27</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/flutter/">flutter</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <section class="post-content">
+            <p>###EventBus事件总线</p>
+<p>原生开发中，时常遇到通知或广播机制，应对需要跨页面的事件通知。作为移动端跨平台框架的Flutter而已，也有同样的解决方案-EventBus，event_bus提供事件总线功能来实现一些状态的更新，核心是基于Dart Streams（流）；事件总线通常实现了订阅者模式，订阅者模式包含发布者和订阅者两种角色，可以通过事件总线来触发事件和监听事件，下面来通过更改主题颜色的案例认识下event_bus。</p>
+<h4 id="1-集成插件"><a href="#1-集成插件" class="headerlink" title="1 集成插件"></a>1 集成插件</h4><p>在pubspec.yaml文件中添加event_bus，当前版本1.1.1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event_bus: ^1.1.0</span><br></pre></td></tr></table></figure>
+
+<p>在使用的地方import </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &apos;package:asset_pickers/asset_pickers.dart&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>####2 创建EventBus<br>通常每个应用程序只有一个事件总线，但可以设置多个事件总线以对一组特定事件进行分组。新建event_bus.dart类，在类中创建EventBus实例，并使其能够在其他类中被使用，并定义了ThemeEvent通知修改主题样式的事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import &apos;package:event_bus/event_bus.dart&apos;;</span><br><span class="line"></span><br><span class="line">EventBus eventBus = EventBus();</span><br><span class="line"></span><br><span class="line">enum ThemeModel &#123;</span><br><span class="line">  light, // 浅色</span><br><span class="line">  dark, // 深色</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class ThemeEvent &#123;</span><br><span class="line">  ThemeModel model = ThemeModel.light;</span><br><span class="line"></span><br><span class="line">  ThemeEvent(this.model);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-注册订阅者"><a href="#3-注册订阅者" class="headerlink" title="3 注册订阅者"></a>3 注册订阅者</h4><p>下面我们在main.dart中，注册订阅者，收到修改模式的通知后，处理样式更改逻辑，多个页面同样处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@override</span><br><span class="line">  void initState() &#123;</span><br><span class="line">    super.initState();</span><br><span class="line">    _themeModelscription = eventBus.on&lt;ThemeEvent&gt;().listen((event) &#123;</span><br><span class="line">      setState(() &#123;</span><br><span class="line">        color = event.model == ThemeModel.light</span><br><span class="line">            ? Color(0xfff5f5f5)</span><br><span class="line">            : Color(0xff000000);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-触发订阅通知"><a href="#4-触发订阅通知" class="headerlink" title="4 触发订阅通知"></a>4 触发订阅通知</h4><p>在需要触发的地方，调用下面方法，即可通知到已订阅该类型通知指出相应逻辑。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eventBus.fire(ThemeEvent(model));</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-解除订阅"><a href="#5-解除订阅" class="headerlink" title="5 解除订阅"></a>5 解除订阅</h4><p>所涉及的订阅者在生命周期结束前，需要解除订阅，防止内存泄漏。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void dispose() &#123;</span><br><span class="line">    super.dispose();</span><br><span class="line">    //取消订阅</span><br><span class="line">    _themeModelscription.cancel();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.520lee.com/Fn-ENM-Qlb92xcqeBo1lZqDOfYko" alt="效果图"></p>
+<p><img src="http://img.520lee.com/FkKlxPJPpVGyQKpkVysBqbp7wwh8" alt="浅色模式"></p>
+<p><img src="http://img.520lee.com/FkfoH6eKvcb9cvzvqYS8-TQca4QP" alt="深色模式"></p>
+<p>1.案例github地址：<a href="https://github.com/Qson8/event_bus_demo" target="_blank" rel="noopener">https://github.com/Qson8/event_bus_demo</a><br>2.event_bus插件地址：<a href="https://pub.dev/packages/event_bus" target="_blank" rel="noopener">https://pub.dev/packages/event_bus</a></p>
+
+        </section>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Qson</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://Qson.com/2020/03/16/event_bus/">http://Qson.com/2020/03/16/event_bus/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/flutter/"># flutter</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/12/14/Future-Dio-asynchronous/">Flutter基础之Dart语言入门:Future异步使用</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Qson | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
