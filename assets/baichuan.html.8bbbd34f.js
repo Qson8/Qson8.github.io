@@ -1,0 +1,1 @@
+const t={key:"v-7d9251b6",path:"/ios/sdk/baichuan.html",title:"百川电商SDK 接入说明及注意点",lang:"zh-CN",frontmatter:{title:"百川电商SDK 接入说明及注意点",date:"2019-08-20T19:15:07.000Z",tags:["iOS"],category:["iOS"]},excerpt:"",headers:[],filePathRelative:"ios/sdk/baichuan.md",git:{updatedTime:1629792855e3,contributors:[{name:"Qson",email:"455063392@qq.com",commits:2}]}};export{t as data};

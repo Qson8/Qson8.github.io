@@ -1,0 +1,1 @@
+const e={key:"v-441bf8b6",path:"/os/ubuntu/",title:"首页",lang:"zh-CN",frontmatter:{title:"首页"},excerpt:"",headers:[{level:2,title:"介绍",slug:"介绍",children:[]},{level:2,title:"配置详情",slug:"配置详情",children:[]}],filePathRelative:"os/ubuntu/README.md",git:{updatedTime:1629777011e3,contributors:[{name:"Qson",email:"455063392@qq.com",commits:1}]}};export{e as data};

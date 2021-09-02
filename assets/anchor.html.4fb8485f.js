@@ -1,0 +1,1 @@
+const e={key:"v-ac28d198",path:"/frontend/css/anchor.html",title:"锚点",lang:"zh-CN",frontmatter:{title:"锚点"},excerpt:"",headers:[{level:2,title:"选项卡",slug:"选项卡",children:[]},{level:2,title:"回到顶部",slug:"回到顶部",children:[]}],filePathRelative:"frontend/css/anchor.md",git:{updatedTime:1629777011e3,contributors:[{name:"Qson",email:"455063392@qq.com",commits:1}]}};export{e as data};

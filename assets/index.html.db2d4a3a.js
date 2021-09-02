@@ -1,0 +1,1 @@
+const e={key:"v-8daa1a0e",path:"/",title:"",lang:"zh-CN",frontmatter:{home:!0,heroImage:"/hero.jpg",heroText:"Qson",tagline:"If you stand tall, you can look far away",actionText:"进入笔记 →",actionLink:"/guide/"},excerpt:"",headers:[],filePathRelative:"README.md",git:{updatedTime:163055372e4,contributors:[{name:"Qson",email:"455063392@qq.com",commits:2}]}};export{e as data};

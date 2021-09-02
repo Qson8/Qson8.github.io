@@ -1,0 +1,1 @@
+const e={key:"v-263c8c8c",path:"/backend/nestjs/architecture.html",title:"架构",lang:"zh-CN",frontmatter:{title:"架构"},excerpt:"",headers:[{level:2,title:"解决问题",slug:"解决问题",children:[]}],filePathRelative:"backend/nestjs/architecture.md",git:{updatedTime:1629777011e3,contributors:[{name:"Qson",email:"455063392@qq.com",commits:1}]}};export{e as data};

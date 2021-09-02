@@ -1,0 +1,1 @@
+const t={key:"v-08181a76",path:"/algorithms/dynamic-programming/",title:"动态规划",lang:"zh-CN",frontmatter:{title:"动态规划"},excerpt:"",headers:[{level:2,title:"概念",slug:"概念",children:[]}],filePathRelative:"algorithms/dynamic-programming/README.md",git:{updatedTime:1629777011e3,contributors:[{name:"Qson",email:"455063392@qq.com",commits:1}]}};export{t as data};

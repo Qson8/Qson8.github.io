@@ -1,0 +1,1 @@
+const e={key:"v-1838a5aa",path:"/frontend/css/bfc.html",title:"BFC",lang:"zh-CN",frontmatter:{title:"BFC"},excerpt:"",headers:[{level:2,title:"概念",slug:"概念",children:[]},{level:2,title:"产生",slug:"产生",children:[]}],filePathRelative:"frontend/css/bfc.md",git:{updatedTime:1629777011e3,contributors:[{name:"Qson",email:"455063392@qq.com",commits:1}]}};export{e as data};

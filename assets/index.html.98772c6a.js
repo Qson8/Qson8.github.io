@@ -1,0 +1,1 @@
+import{o as a,c as e,F as r,a as n}from"./app.ea66aa66.js";const s={},t=n("h4",{id:"",tabindex:"-1"},[n("a",{class:"header-anchor",href:"#","aria-hidden":"true"},"#")],-1),d=n("p",null,"聊聊互联网的发展，给自己一个机会，畅想未来。",-1);s.render=function(n,s){return a(),e(r,null,[t,d],64)};export default s;

@@ -1,0 +1,1 @@
+import{o as r,c as t}from"./app.ea66aa66.js";const a={};a.render=function(a,e){return r(),t("p",null,"Dart是Flutter开发语言，学习一门技术，首先要从开发语言开始。本篇开始从开发语言开始，目的是为0基本的朋友能更方便的了解这门开发语言，同时有开发基本的也可以作为笔记查看。")};export default a;

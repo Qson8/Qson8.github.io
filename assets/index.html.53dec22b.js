@@ -1,0 +1,1 @@
+const e={key:"v-63353581",path:"/design/pixel/",title:"像素",lang:"zh-CN",frontmatter:{title:"像素"},excerpt:"",headers:[{level:2,title:"资料",slug:"资料",children:[]}],filePathRelative:"design/pixel/README.md",git:{updatedTime:1629777011e3,contributors:[{name:"Qson",email:"455063392@qq.com",commits:1}]}};export{e as data};
